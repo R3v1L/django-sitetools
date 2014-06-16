@@ -1,0 +1,11 @@
+{% load i18n %}
+{% trans "Tag" %}: {{ log.tag }} 
+{% trans "Level" %}: {{ log.get_level_display }}
+{% trans "Mesage" %}: {{ log.message }}
+{% if log.site %}{% trans "Site" %}: {{ log.site }}{% endif %}
+{% if log.ip %}{% trans "IP address" %}: {{ log.ip }}{% endif %}
+{% if log.content_object %}{% trans "Content object" %}: {{ log.content_object.__unicode__ }}{% endif %}
+{% if log.user %}{% trans "User" %}: {{ log.user }}{% endif %}
+{% if log.data %}{% trans "Data" %}:
+{{ log.data }}
+{% endif %}

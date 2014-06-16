@@ -18,9 +18,6 @@ from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
 from django.conf import settings
 
-# Default settings
-STATIC_SENDFILE_BACKEND = getattr(settings, 'STATIC_SENDFILE_BACKEND', 'mod_xsendfile')
-
 class HttpResponseServiceUnavailable(HttpResponse):
     """
     **Subclass for HttpResponse with 503 status code**
@@ -53,7 +50,7 @@ class StaticSendFileResponse(HttpResponse):
     
     If the user is in debug mode then 
     """
-    def __init__(self,filepath,backend=STATIC_SENDFILE_BACKEND,download_as=None,force_backend=False,extra_headers={},*args,**kwargs):
+    def __init__(self,filepath,backend=settings.STATIC_SENDFILE_BACKEND,download_as=None,force_backend=False,extra_headers={},*args,**kwargs):
         """
         Class initialization method
 

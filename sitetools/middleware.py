@@ -13,12 +13,12 @@
 import re
 
 # Django imports
-from django.conf import settings,urls
+from django.conf import settings, urls
 from django.core import urlresolvers
 from django.shortcuts import redirect
 
 # Application imports
-from sitetools.utils import match_any,get_site_from_request, get_client_ip, build_site_url
+from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url, get_legal_document_version
 
 # Add 503 handler to django urls module
 urls.handler503 = 'sitetools.views.service_unavailable'
@@ -41,7 +41,7 @@ class MaintenanceMiddleware(object):
     """
     
     # Compile maintenance whitelist URLs
-    _MAINTENANCE_WHITELIST = tuple([re.compile(u) for u in settings.SITETOOLS_MAINTENANCE_WHITELIST]) 
+    _MAINTENANCE_WHITELIST = tuple([re.compile(u) for u in settings.MAINTENANCE_URL_WHITELIST]) 
     
     def process_request(self, request):
         """
@@ -58,7 +58,7 @@ class MaintenanceMiddleware(object):
             sitemaintenance=False
             
         # Check if site is not marked as under maintenance or forced maintenance is specified
-        if settings.SITETOOLS_UNDER_MAINTENANCE or sitemaintenance:
+        if settings.SITE_UNDER_MAINTENANCE or sitemaintenance:
             # Allow access if client IP is in INTERNAL_IPS or logged in user is staff member
             if get_client_ip(request) not in settings.INTERNAL_IPS and not request.user.is_staff:
                 # Check if current view is whitelisted
@@ -74,10 +74,10 @@ class SecureURLMiddleware(object):
     """
 
     # Compile forced secure URLs list
-    _forced_secure_urls = tuple([re.compile(u) for u in settings.SITETOOLS_FORCED_SECURE_URLS])
+    _forced_secure_urls = tuple([re.compile(u) for u in settings.FORCED_SECURE_URLS])
     
     # Compile secure URLs list
-    _allowed_secure_urls = _forced_secure_urls + tuple([re.compile(u) for u in settings.SITETOOLS_ALLOWED_SECURE_URLS])
+    _allowed_secure_urls = _forced_secure_urls + tuple([re.compile(u) for u in settings.ALLOWED_SECURE_URLS])
     
     def process_request(self, request):
         """
@@ -105,7 +105,7 @@ class CaseInsensitiveURLMiddleware(object):
     """
     
     # Compile case sensitive paths
-    _case_sensitive_paths = tuple([re.compile(u) for u in settings.SITETOOLS_CASE_SENSITIVE_URLS])
+    _case_sensitive_paths = tuple([re.compile(u) for u in settings.CASE_SENSITIVE_URLS])
     
     def process_request(self, request):
         """
@@ -115,3 +115,34 @@ class CaseInsensitiveURLMiddleware(object):
         if request.path_info != lpath and not match_any(request.path_info, self._case_sensitive_paths):
             return redirect(lpath,permanent=False)
         return None
+
+class LegalsMiddleware(object):
+    """
+    Legal documents middleware class
+    """
+    def process_request(self, request):
+        """
+        Request processing
+        """
+        if settings.FORCE_LEGAL_ACCEPTANCE:
+            # Check media and static URLs
+            if request.path.startswith(settings.MEDIA_URL) or request.path.startswith(settings.STATIC_URL):
+                return None
+            # Check URL whitelist
+            for path in settings.FORCE_LEGAL_ACCEPTANCE_WHITELIST_URLS:
+                    if request.path.startswith(path):
+                        return None
+            # Check if user is logged in and accessing other URL different to legal acceptance 
+            if request.user.is_authenticated() and not request.path.startswith(urlresolvers.reverse('legals_document_acceptance_default')):
+                document=get_legal_document_version(settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION)
+                if document is not None:
+                    # Check if current user accepted the document
+                    if document.accepted_by_user(request.user) is None:
+                        # Redirect to acceptance page
+                        if settings.FORCED_LEGAL_DOCUMENT is not None:
+                            if settings.FORCED_LEGAL_DOCUMENT_VERSION is not None:
+                                return redirect(urlresolvers.reverse('legals_document_acceptance_version',args=[settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION]))
+                            else:
+                                return redirect(urlresolvers.reverse('legals_document_acceptance_latest',args=[settings.FORCED_LEGAL_DOCUMENT]))
+                        return redirect(urlresolvers.reverse('legals_document_acceptance_default') + '?next=' + request.path)
+

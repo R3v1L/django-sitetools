@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-
+Sitetools utility functions module
 ===============================================
 
 .. module:: sitetools.utils
-    :platform: Unix, Windows
-    :synopsis: 
-    :deprecated:
+    :platform: Django
+    :synopsis: Sitetools utility functions module
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
 # Python imports
-import sys, re
+import sys
 
 # Django imports
 from django.contrib.sites.models import Site
@@ -80,3 +79,4 @@ def match_any(text,patternlist):
         if (isinstance(pattern,six.string_types) and text == pattern) or pattern.match(text):
             return True 
     return False
+
