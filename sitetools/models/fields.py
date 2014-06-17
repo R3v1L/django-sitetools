@@ -49,21 +49,6 @@ class LanguageField(models.CharField):
         kwargs.setdefault('choices', settings.LANGUAGES)
         super(LanguageField, self).__init__(*args, **kwargs)
 
-class CurrencyField(models.CharField):
-    """
-    Currency selection field
-    """
-    description = _('Currency selection field')
-    __metaclass__ = models.SubfieldBase
-    
-    def __init__(self, *args, **kwargs):
-        """
-        Class initialization method
-        """
-        kwargs.setdefault('max_length', 3)
-        kwargs.setdefault('choices', enums.CURRENCY_CODES)
-        super(CurrencyField, self).__init__(*args, **kwargs)
-
 class EncodedField(models.TextField):
     """
     Encoded data field

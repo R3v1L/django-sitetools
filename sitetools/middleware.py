@@ -16,9 +16,11 @@ import re
 from django.conf import settings, urls
 from django.core import urlresolvers
 from django.shortcuts import redirect
+from django.http import HttpResponsePermanentRedirect
+from django.middleware.locale import LocaleMiddleware
 
 # Application imports
-from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url, get_legal_document_version
+from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url
 
 # Add 503 handler to django urls module
 urls.handler503 = 'sitetools.views.service_unavailable'
@@ -146,3 +148,8 @@ class LegalsMiddleware(object):
                                 return redirect(urlresolvers.reverse('legals_document_acceptance_latest',args=[settings.FORCED_LEGAL_DOCUMENT]))
                         return redirect(urlresolvers.reverse('legals_document_acceptance_default') + '?next=' + request.path)
 
+class SEOFriendlyLocaleMiddleware(LocaleMiddleware):
+    """
+    SEO Friendly locale middleware
+    """
+    response_redirect_class = HttpResponsePermanentRedirect

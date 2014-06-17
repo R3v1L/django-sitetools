@@ -25,7 +25,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 # Applications imports
 from sitetools.utils import get_site_from_request
-from sitetools.models.fields import CountryField, LanguageField
+from sitetools.models.fields import CountryField, LanguageField, JSONField
 
 class SiteInfo(models.Model):
     """
@@ -84,7 +84,7 @@ class SiteLog(models.Model):
         help_text=_('Associated IP address'))
     message=models.CharField(_('Message'),max_length=200,
         help_text=_('Log message'))
-    data=models.TextField(_('Data'),blank=True,null=True,
+    data=JSONField(_('Data'),blank=True,null=True,
         help_text=_('Extra data for log message'))
     content_type = models.ForeignKey(ContentType,verbose_name=_('Content type'),blank=True,null=True,
         help_text=_('Associated content type'))
@@ -135,7 +135,7 @@ class SiteLog(models.Model):
         log.save()
         
         # Mail admins if specified or needed
-        if mail_admins or log.level <= SITELOG_MAIL_ADMINS_LEVEL:
+        if mail_admins or log.level <= settings.SITELOG_MAIL_ADMINS_LEVEL:
             print log
             body=render_to_string('sitelog/mail_admins.html', {'log': log})
             django_mail_admins(message,body,fail_silently=True)
@@ -203,20 +203,19 @@ class LegalDocument(models.Model):
         Get document version from given identifiers or default document latest version
         """
         if docid is not None:
-	    try:
-	        document=LegalDocument.objects.get(identifier=docid,country=country)
+    	    try:
+	           document=LegalDocument.objects.get(identifier=docid,country=country)
             except:
-	        return None
+	           return None
         else:
-	    try:
-	        document=LegalDocument.objects.get(default=True,country=country)
+            try:
+                document=LegalDocument.objects.get(default=True,country=country)
             except:
-	        return None
-	
+                return None
         if version is not None:
-	    document=document.get_version(version)
+	       document=document.get_version(version)
         else:
-	    document=document.get_latest()
+	       document=document.get_latest()
         return document
 
     def __unicode__(self):
@@ -239,8 +238,7 @@ class LegalDocumentVersion(models.Model):
     
     document=models.ForeignKey(LegalDocument,verbose_name=_('Legal document'),
         help_text=_('Legal document for this version'))
-    lang=models.CharField(_('Language'),max_length=50,
-        choices=settings.LANGUAGES,db_index=True,
+    lang=LanguageField(_('Language'),
         help_text=_('Legal document language for this version'))
     date=models.DateTimeField(_('Date'), 
         help_text=_('Date and time this document will apply'))

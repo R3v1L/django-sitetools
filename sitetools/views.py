@@ -63,7 +63,7 @@ def legal_document_view(req,docid=None,version=None):
         'document': document,
         'legalpage': True
     }
-    return TemplateResponse(req, 'legals/document_view.html', ctx)
+    return TemplateResponse(req, 'legal/document_view.html', ctx)
 
 @login_required
 def legal_document_acceptance(req,docid=None,version=None):
@@ -90,4 +90,4 @@ def legal_document_acceptance(req,docid=None,version=None):
         'document': document,
         'next': next,
     }
-    return TemplateResponse(req, 'legals/document_acceptance.html', ctx)
+    return TemplateResponse(req, 'legal/document_acceptance.html', ctx)

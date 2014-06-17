@@ -23,7 +23,7 @@ urlpatterns = [
         name='legal_document_acceptance_latest'),
     url(r'^accept/$',
         settings.LEGAL_DOCUMENT_ACCEPTANCE_VIEW,
-        name='legal_document_acceptance_default'),
+        name='legal_document_acceptance'),
 
     # Legal document view
     url(r'^(?P<docid>\w+)/(?P<version>\w+)/$', 
@@ -34,5 +34,5 @@ urlpatterns = [
        name='legal_document_latest'),
     url(r'^$',
         settings.LEGAL_DOCUMENT_VIEW,
-        name='legal_document_default'),
+        name='legal_document'),
 ]
