@@ -15,9 +15,10 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.http import Http404, HttpResponse
+from django.conf import settings
 
 # Application imports
-from sitetools.utils import get_site_from_request, get_client_ip
+from sitetools.utils import get_site_from_request
 from sitetools.models import LegalDocument, LegalDocumentAcceptance
 
 def service_unavailable(request,template_name='503.html'):
