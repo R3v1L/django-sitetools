@@ -96,6 +96,7 @@ class JSONField(EncodedField):
         """
         Initialization method
         """
+        kwargs.setdefault('default', [])
         super(JSONField,self).__init__(encoder=json.dumps,decoder=self.decode_json, *args, **kwargs)
     
     def decode_json(self,value):
@@ -103,7 +104,7 @@ class JSONField(EncodedField):
         Python object casting method
         """
         if not value:
-            return {}
-        elif isinstance(value, dict):
+            return []
+        elif isinstance(value, (list,dict)):
             return value
         return json.loads(value)

@@ -122,15 +122,18 @@ class SiteLog(models.Model):
         # Check exceptions    
         if sys.exc_info() != (None,None,None):
             if data is not None:
-                data=unicode(data) + '\n\n---\n' + traceback.format_exc()
+                if isinstance(data, dict):
+                    data['last_exception']=u'%s' % traceback.format_exc()
+                else:
+                    data.append(u'%s' % traceback.format_exc())
             else:
-                data=traceback.format_exc()
+                data=[u'%s' % traceback.format_exc()]
 
         # Save log object
         if len(message) > 200:
             message=message[:200]
             data='%s\n%s' % (message,data)
-        log=SiteLog(tag=tag,message=u'%s' % message,level=level,data=u'%s' % data,ip=ip,user=user,site=site)
+        log=SiteLog(tag=tag,message=u'%s' % message,level=level,data=data,ip=ip,user=user,site=site)
         log.content_object=content_object
         log.save()
         
