@@ -13,12 +13,13 @@
 from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.http import Http404, HttpResponse
+from django.shortcuts import redirect
 from django.conf import settings
 
 # Application imports
-from sitetools.utils import get_site_from_request
+from sitetools.utils import get_client_ip,get_site_from_request
 from sitetools.models import LegalDocument, LegalDocumentAcceptance
 
 def service_unavailable(request,template_name='503.html'):
@@ -27,13 +28,13 @@ def service_unavailable(request,template_name='503.html'):
     """
     return TemplateResponse(request,template_name,status=503)
 
-def robots(request,options={}):
+def robots(request,template_name='robots.txt',options={}):
     """
     Robots view
     """
     # Global robots
     try:
-        data=render_to_string('robots.txt',options)
+        data=render_to_string(template_name,options)
     except IOError:
         data=''
     # Per site robots
@@ -46,10 +47,10 @@ def robots(request,options={}):
         data+=site.siteinfo.robots
     except:
         pass
-    # Return robots.txt
+    # Return robots.txt contents
     return HttpResponse(data,mimetype='text/plain')
 
-def legal_document_view(req,docid=None,version=None):
+def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
     View for legal documents acceptance
     """
@@ -64,10 +65,10 @@ def legal_document_view(req,docid=None,version=None):
         'document': document,
         'legalpage': True
     }
-    return TemplateResponse(req, 'legal/document_view.html', ctx)
+    return TemplateResponse(req, template_name, ctx)
 
 @login_required
-def legal_document_acceptance(req,docid=None,version=None):
+def legal_document_acceptance(req,docid=None,version=None,template_name='legal/document_acceptance.html'):
     """
     View for legal documents acceptance
     """
@@ -81,7 +82,7 @@ def legal_document_acceptance(req,docid=None,version=None):
     accepted=req.GET.get('accept',False)
     if accepted:
         # Mark document as accepted
-        ip=get_public_ip(req)
+        ip=get_client_ip(req)
         LegalDocumentAcceptance(documentversion=document,user=req.user,ip=ip).save()
         if next is not None:
             return redirect(next)
@@ -91,4 +92,4 @@ def legal_document_acceptance(req,docid=None,version=None):
         'document': document,
         'next': next,
     }
-    return TemplateResponse(req, 'legal/document_acceptance.html', ctx)
+    return TemplateResponse(req, template_name, ctx)

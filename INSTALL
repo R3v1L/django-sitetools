@@ -5,7 +5,7 @@ this command from the command prompt:
 
 If you're upgrading from a previous version, you need to remove it first.
 
-AS AN ALTERNATIVE, you can just copy the entire "evodjango" directory to Python's
+AS AN ALTERNATIVE, you can just copy the entire "sitetools" directory to Python's
 site-packages directory, which is located wherever your Python installation
 lives. Some places you might check are:
 

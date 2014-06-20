@@ -10,11 +10,17 @@ Sitetools utility functions module
 """
 
 # Python imports
-import sys
+import sys, os
 
 # Django imports
 from django.contrib.sites.models import Site
+from django.template import RequestContext
+from django.core.mail import mail_admins, send_mail
+from django.template.loader import render_to_string
+from django.http import Http404
 from django.utils import six
+from django.utils.translation import ugettext
+from django.conf import settings
 
 def inject_app_defaults(appname):
     """
@@ -80,3 +86,37 @@ def match_any(text,patternlist):
             return True 
     return False
 
+
+def send_mail_from_template(recipient_list,subject_template_name,email_template_name,
+                            from_email=settings.DEFAULT_FROM_EMAIL,request=None,context={},
+                            fail_silently=False,auth_user=None, auth_password=None, connection=None,html=False):
+    """
+    Send email rendering a template
+    """
+    if request:
+        context.update(RequestContext(request))
+    subject=render_to_string(subject_template_name, context)
+    subject=''.join(subject.splitlines())
+    message=render_to_string(email_template_name, context)
+    send_mail(subject, message, from_email, recipient_list, fail_silently, auth_user, auth_password, connection)
+
+def send_mail_to_admins(subject_template_name,email_template_name,request=None,context={},fail_silently=True):
+    """
+    Send email to administrators
+    """
+    if request:
+        context.update(RequestContext(request))
+    subject=render_to_string(subject_template_name, context)
+    subject=''.join(subject.splitlines())
+    message=render_to_string(email_template_name, context)
+    mail_admins(subject, message, fail_silently=True)
+
+def static_serve(filepath,download_as=None,*args,**kwargs):
+    """
+    Static serve tool function
+    """
+    if os.path.exists(filepath) and not os.path.isdir(filepath):
+        from sitetools.http import StaticSendFileResponse
+        return StaticSendFileResponse(filepath,download_as,*args,**kwargs)
+    else:
+        raise Http404(ugettext('Requested file "%s" does not exist') % filepath)

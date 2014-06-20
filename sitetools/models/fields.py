@@ -16,7 +16,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-# EVODjango imports
+# Application imports
 from sitetools import enums
 
 class CountryField(models.CharField):
