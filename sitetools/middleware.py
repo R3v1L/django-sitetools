@@ -20,7 +20,7 @@ from django.http import HttpResponsePermanentRedirect
 from django.middleware.locale import LocaleMiddleware
 
 # Application imports
-from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url
+from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url, get_legal_document_version
 
 # Add 503 handler to django urls module
 urls.handler503 = 'sitetools.views.service_unavailable'
@@ -118,7 +118,7 @@ class CaseInsensitiveURLMiddleware(object):
             return redirect(lpath,permanent=False)
         return None
 
-class LegalsMiddleware(object):
+class LegalMiddleware(object):
     """
     Legal documents middleware class
     """
