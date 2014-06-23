@@ -12,7 +12,7 @@ Site tools template tags module
 # Django imports
 from django import template
 
-# EVODjango imports
+# Application imports
 from filters import shuffle_list,set_arg,call_method,get_range,without_lang,b64encode,html_decode # currency_formatter,file_size_formatter
 from tags.stringrender import stringrender_tag
 
