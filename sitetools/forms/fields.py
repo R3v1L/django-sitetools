@@ -8,10 +8,16 @@ Site tools form fields module
     :synopsis: Site tools form fields module
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
+# Python imports
+import urllib, urllib2
+
 # Django imports
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+
+# Application imports
+from sitetools.forms.widgets import RECAPTCHAWidget
 
 class EULAField(forms.Field):
     """
@@ -37,3 +43,56 @@ class EULAField(forms.Field):
         if not value:
             raise forms.ValidationError(_('You have to accept the terms and conditions to continue'))
 
+class RECAPTCHAField(forms.Field):
+    """
+    reCATCHA form field class
+    """
+    def __init__(self,pubkey,privkey,
+                 api_server='https://www.google.com/recaptcha/api',
+                 verify_server='https://www.google.com/recaptcha/api/verify',
+                 *args,**kwargs):
+        """
+        Class initialization
+        """
+        self.pubkey=pubkey
+        self.privkey=privkey
+        self.api_server=api_server
+        self.verify_server=verify_server
+        kwargs.setdefault('widget',RECAPTCHAWidget(self.api_server,self.pubkey))
+        super(RECAPTCHAField,self).__init__(*args,**kwargs)
+
+    def clean(self,value):
+        """
+        reCAPTCHA Validation
+        """
+        challenge=value[0]
+        captcharesp=value[1]
+        # Check captcha input
+        if not (captcharesp and challenge and len(captcharesp) and len(challenge)):
+            raise forms.ValidationError(_('Invalid verification'))
+        # Generate request to recaptcha servers
+        verifreq = urllib2.Request (
+            url = self.verify_server,
+            data = urllib.urlencode ({
+                'privatekey': self.privkey,
+                'remoteip' :  None,
+                'challenge':  challenge.encode('utf-8'),
+                'response' :  captcharesp.encode('utf-8'),
+            }),
+            headers = {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'User-agent': 'Python'
+                }
+            )
+        # Do request
+        try:
+            resp=urllib2.urlopen(verifreq)
+        except:
+            # In case of connection error just accept captcha as valid
+            return
+        # Check captcha response
+        return_values=resp.read().splitlines();
+        resp.close();
+        return_code=return_values[0]
+        if (return_code!="true"):
+            raise forms.ValidationError(_('Invalid verification'))

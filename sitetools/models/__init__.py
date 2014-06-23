@@ -138,7 +138,7 @@ class SiteLog(models.Model):
         log.save()
         
         # Mail admins if specified or needed
-        if mail_admins or log.level <= settings.SITELOG_MAIL_ADMINS_LEVEL:
+        if mail_admins or log.level <= settings.SITE_LOG_MAIL_ADMINS_LEVEL:
             print log
             body=render_to_string('sitelog/mail_admins.html', {'log': log})
             django_mail_admins(message,body,fail_silently=True)

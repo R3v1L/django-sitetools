@@ -20,7 +20,8 @@ from django.http import HttpResponsePermanentRedirect
 from django.middleware.locale import LocaleMiddleware
 
 # Application imports
-from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url, get_legal_document_version
+from sitetools.models import LegalDocument
+from sitetools.utils import match_any, get_site_from_request, get_client_ip, build_site_url
 
 # Add 503 handler to django urls module
 urls.handler503 = 'sitetools.views.service_unavailable'
@@ -135,18 +136,18 @@ class LegalMiddleware(object):
                     if request.path.startswith(path):
                         return None
             # Check if user is logged in and accessing other URL different to legal acceptance 
-            if request.user.is_authenticated() and not request.path.startswith(urlresolvers.reverse('legals_document_acceptance_default')):
-                document=get_legal_document_version(settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION)
+            if request.user.is_authenticated() and not request.path.startswith(urlresolvers.reverse('legal_document_acceptance')):
+                document=LegalDocument.get_document_version(settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION)
                 if document is not None:
                     # Check if current user accepted the document
                     if document.accepted_by_user(request.user) is None:
                         # Redirect to acceptance page
                         if settings.FORCED_LEGAL_DOCUMENT is not None:
                             if settings.FORCED_LEGAL_DOCUMENT_VERSION is not None:
-                                return redirect(urlresolvers.reverse('legals_document_acceptance_version',args=[settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION]))
+                                return redirect(urlresolvers.reverse('legal_document_acceptance_version',args=[settings.FORCED_LEGAL_DOCUMENT, settings.FORCED_LEGAL_DOCUMENT_VERSION]))
                             else:
-                                return redirect(urlresolvers.reverse('legals_document_acceptance_latest',args=[settings.FORCED_LEGAL_DOCUMENT]))
-                        return redirect(urlresolvers.reverse('legals_document_acceptance_default') + '?next=' + request.path)
+                                return redirect(urlresolvers.reverse('legal_document_acceptance_latest',args=[settings.FORCED_LEGAL_DOCUMENT]))
+                        return redirect(urlresolvers.reverse('legal_document_acceptance') + '?next=' + request.path)
 
 class SEOFriendlyLocaleMiddleware(LocaleMiddleware):
     """

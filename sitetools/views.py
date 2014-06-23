@@ -14,6 +14,7 @@ from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.conf import settings
@@ -60,7 +61,7 @@ def legal_document_view(req,docid=None,version=None, template_name='legal/docume
         raise Http404(ugettext('No legal document matching given parameters'))
     # Check if we can show previous versions of the document
     if not settings.SHOW_PREVIOUS_LEGAL_DOCUMENT_VERSIONS and document.document.get_latest() != document:
-        return redirect(reverse('legals_document_latest',args=[docid]))
+        return redirect(reverse('legal_document_latest',args=[docid]))
     ctx={
         'document': document,
         'legalpage': True
