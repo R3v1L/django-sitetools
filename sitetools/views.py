@@ -49,7 +49,7 @@ def robots(request,template_name='robots.txt',options={}):
     except:
         pass
     # Return robots.txt contents
-    return HttpResponse(data,mimetype='text/plain')
+    return HttpResponse(data,content_type='text/plain')
 
 def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
