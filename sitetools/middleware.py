@@ -59,11 +59,15 @@ class MaintenanceMiddleware(object):
             sitemaintenance=site.siteinfo.maintenance
         except:
             sitemaintenance=False
-            
+
         # Check if site is not marked as under maintenance or forced maintenance is specified
         if settings.SITE_UNDER_MAINTENANCE or sitemaintenance:
             # Allow access if client IP is in INTERNAL_IPS or logged in user is staff member
-            if get_client_ip(request) not in settings.INTERNAL_IPS and not request.user.is_staff:
+            try:
+                is_staff=request.user.is_staff
+            except:
+                is_staff=False
+            if get_client_ip(request) not in settings.INTERNAL_IPS and not is_staff:
                 # Check if current view is whitelisted
                 if not match_any(request.path_info, self._MAINTENANCE_WHITELIST):
                     # Return 503 handler response
@@ -91,16 +95,17 @@ class SecureURLMiddleware(object):
         else:
             # Get current site
             site = get_site_from_request(request)
-            
-        # Only check security if debug is disabled
-        if not request.is_secure():
-            # Force HTTPS for forced secure paths
-            if match_any(request.path_info, self._forced_secure_urls):
-                return redirect(build_site_url(site,request.get_full_path(),secure=True))
-        else:
-            # Allow secure paths only for allowed ones
-            if not match_any(request.path_info, self._allowed_secure_urls):
-                return redirect(build_site_url(site,request.get_full_path(),secure=False))
+        
+        if not settings.DEBUG or (settings.DEBUG and settings.SECURE_URLS_DEBUG):
+            # Only check security if debug is disabled
+            if not request.is_secure():
+                # Force HTTPS for forced secure paths
+                if match_any(request.path_info, self._forced_secure_urls):
+                    return redirect(build_site_url(site,request.get_full_path(),secure=True))
+            else:
+                # Allow secure paths only for allowed ones
+                if not match_any(request.path_info, self._allowed_secure_urls):
+                    return redirect(build_site_url(site,request.get_full_path(),secure=False))
 
 class CaseInsensitiveURLMiddleware(object):
     """

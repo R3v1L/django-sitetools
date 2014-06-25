@@ -24,6 +24,9 @@ ALLOWED_SECURE_URLS = (r'^/.*$',)
 # URLs forced to use HTTPS
 FORCED_SECURE_URLS = ()
 
+# Use secure URLs in debug mode
+SECURE_URLS_DEBUG = False
+
 # Case sensitive URLs
 CASE_SENSITIVE_URLS = ()
 
