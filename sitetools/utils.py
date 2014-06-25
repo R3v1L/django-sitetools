@@ -74,7 +74,6 @@ def build_site_url(site,url,secure=False):
     protocol='http'
     if secure:
         protocol='https'
-    print u'%s://%s%s' % (protocol,site.domain,url)
     return u'%s://%s%s' % (protocol,site.domain,url)
 
 def match_any(text,patternlist):
