@@ -117,6 +117,6 @@ def static_serve(filepath,download_as=None,*args,**kwargs):
     """
     if os.path.exists(filepath) and not os.path.isdir(filepath):
         from sitetools.http import StaticSendFileResponse
-        return StaticSendFileResponse(filepath,download_as,*args,**kwargs)
+        return StaticSendFileResponse(filepath,download_as=download_as,*args,**kwargs)
     else:
         raise Http404(ugettext('Requested file "%s" does not exist') % filepath)
