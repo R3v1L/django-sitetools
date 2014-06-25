@@ -85,7 +85,7 @@ class StaticSendFileResponse(HttpResponse):
             elif backend=='nginx_xaccel':
                 self['X-Accel-Redirect'] = filepath
             else:
-                raise Exception('Invalid static serving backend')
+                raise Exception('Invalid static serving backend "%s"' % backend)
         # Setup download headers
         if download_as:
             self['Content-Disposition'] = 'attachment; filename=%s' % download_as
