@@ -107,4 +107,8 @@ class JSONField(EncodedField):
             return []
         elif isinstance(value, (list,dict)):
             return value
-        return json.loads(value)
+        try:
+            return json.loads(value)
+        except:
+            # Encode current value as JSON and return it
+            return json.dumps([value])
