@@ -29,7 +29,7 @@ SECURE_URLS_DEBUG = False
 
 # Case sensitive URLs
 CASE_SENSITIVE_URLS = ()
-
+ 
 # View for legal documents acceptance
 LEGAL_DOCUMENT_ACCEPTANCE_VIEW = 'sitetools.views.legal_document_acceptance'
 
@@ -48,7 +48,11 @@ FORCED_LEGAL_DOCUMENT = None
 # Legal documents forced acceptance document version
 FORCED_LEGAL_DOCUMENT_VERSION = None
 
+# Specify if previous versions of legal documents should be served if requested
+SHOW_PREVIOUS_LEGAL_DOCUMENT_VERSIONS = False
+
 # Site log level for mailing administrators
 SITE_LOG_MAIL_ADMINS_LEVEL = 0
 
-SHOW_PREVIOUS_LEGAL_DOCUMENT_VERSIONS = False
+# Site template prefix
+SITE_TEMPLATE_PREFIX='site_templates'

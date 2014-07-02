@@ -96,3 +96,45 @@ class RECAPTCHAField(forms.Field):
         return_code=return_values[0]
         if (return_code!="true"):
             raise forms.ValidationError(_('Invalid verification'))
+
+class TinyMCEWidget(forms.Textarea):
+    """
+    TinyMCE HTML editor widget
+    """
+    class Media:
+        """
+        Media class
+        """
+        extend = False
+        js = ('//tinymce.cachefly.net/4.0/tinymce.min.js',)
+
+    def __init__(self, attrs=None):
+        final_attrs = {'class': 'tinymce'}
+        if attrs is not None:
+            final_attrs.update(attrs)
+        super(TinyMCEWidget, self).__init__(attrs=final_attrs)
+
+    def render(self, name, value, attrs=None):
+        output=super(TinyMCEWidget, self).render(name, value, attrs)
+        return mark_safe(output + "<script>tinymce.init({selector: '.tinymce', menubar:false, statusbar: false,});</script>")
+
+class AceEditorWidget(forms.Textarea):
+    """
+    Ace code editor widget
+    """
+    class Media:
+        """
+        Media class
+        """
+        extend = False
+        js = ('//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',)
+
+    def __init__(self, attrs=None):
+        final_attrs = {'class': 'aceeditor'}
+        if attrs is not None:
+            final_attrs.update(attrs)
+        super(AceEditorWidget, self).__init__(attrs=final_attrs)
+
+    def render(self, name, value, attrs=None):
+        output=super(AceEditorWidget, self).render(name, value, attrs)
+        return mark_safe(output + "<script>var editor = ace.edit('.aceeditor');</script>")

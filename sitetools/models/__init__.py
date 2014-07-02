@@ -45,6 +45,12 @@ class SiteInfo(models.Model):
     active=models.BooleanField(_('Active'),default=False,
         help_text=_('Specifies if this site is currently active'))
 
+    def __unicode__(self):
+        """
+        Unicode representation
+        """
+        return self.site.domain
+
 class SiteLog(models.Model):
     """
     Web site log model
