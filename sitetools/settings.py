@@ -37,7 +37,7 @@ LEGAL_DOCUMENT_ACCEPTANCE_VIEW = 'sitetools.views.legal_document_acceptance'
 LEGAL_DOCUMENT_VIEW = 'sitetools.views.legal_document_view'
 
 # Force legal documents acceptance by user
-FORCE_LEGAL_ACCEPTANCE = True
+FORCE_LEGAL_ACCEPTANCE = False
 
 # URLs that will not force legal documents acceptance (Admin site, logout, etc.)
 FORCE_LEGAL_ACCEPTANCE_WHITELIST_URLS = ('/admin/','/accounts/logout/')

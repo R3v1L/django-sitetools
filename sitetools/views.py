@@ -64,7 +64,7 @@ def robots(request,template_name='robots.txt',options={}):
 
 def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
-    View for legal documents acceptance
+    View for legal documents
     """
     # Get document
     document=LegalDocument.get_document_version(docid,version)
