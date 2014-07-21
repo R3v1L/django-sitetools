@@ -10,7 +10,7 @@ Sitetools utility functions module
 """
 
 # Python imports
-import sys, os
+import sys, os, datetime
 
 # Django imports
 from django.contrib.sites.models import Site
@@ -119,3 +119,10 @@ def static_serve(filepath,download_as=None,*args,**kwargs):
         return StaticSendFileResponse(filepath,download_as=download_as,*args,**kwargs)
     else:
         raise Http404(ugettext('Requested file "%s" does not exist') % filepath)
+
+def generate_expiration_date(seconds=604800):
+    """
+    Generates an expiration date (default 7 days)
+    """
+    date = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
+    return date.strftime('%a, %d %b %Y %H:%M:%S GMT')

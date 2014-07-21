@@ -20,8 +20,19 @@ from django.shortcuts import redirect
 from django.conf import settings
 
 # Application imports
+from sitetools.http import JSONResponse
 from sitetools.utils import get_client_ip,get_site_from_request
 from sitetools.models import LegalDocument, LegalDocumentAcceptance
+
+def close_cookies_alert(req):
+    """
+    Close cookies alert and avoid it to appear again
+    """
+    req.session['acceptcookies']=True
+    if req.is_ajax():
+        return JSONResponse({})
+    else:
+        return HttpResponse()
 
 def service_unavailable(request,template_name='503.html'):
     """
