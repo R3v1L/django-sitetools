@@ -69,3 +69,52 @@ class TinyMCEWidget(forms.Textarea):
     def render(self, name, value, attrs=None):
         output=super(TinyMCEWidget, self).render(name, value, attrs)
         return mark_safe(output + "<script>tinymce.init({selector: '.tinymce', menubar:false, statusbar: false,});</script>")
+
+class AceEditorWidget(forms.Textarea):
+    """
+    Ace code editor widget
+    """
+    class Media:
+        """
+        Media class
+        """
+        extend = False
+        js = ('//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',)
+
+    def __init__(self, attrs=None):
+        final_attrs = {'class': 'aceeditor'}
+        if attrs is not None:
+            final_attrs.update(attrs)
+        super(AceEditorWidget, self).__init__(attrs=final_attrs)
+
+    def render(self, name, value, attrs=None):
+        output=super(AceEditorWidget, self).render(name, value, attrs)
+        return mark_safe(output + "<script>var editor = ace.edit('.aceeditor');</script>")
+
+class LocationWidget(forms.MultiWidget):
+    """
+    Location widget
+    
+    TODO: Location picker using Google Maps
+    """
+    def __init__(self,attrs={}):
+        """
+        Initialization method
+        """
+        widgets=[forms.NumberInput,forms.NumberInput]
+        attrs.setdefault('step', 'any')
+        super(LocationWidget,self).__init__(widgets=widgets,attrs=attrs)
+
+    def decompress(self,value):
+        """
+        Decompress value
+        """
+        if value:
+            return [value.get('lat',None),value.get('lon',None)]
+        return []
+
+    def format_output(self,rendered_widgets):
+        """
+        Return formatted output            
+        """
+        return u'%s,%s' % (rendered_widgets[0],rendered_widgets[1])

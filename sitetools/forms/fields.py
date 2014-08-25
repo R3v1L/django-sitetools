@@ -17,7 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 # Application imports
-from sitetools.forms.widgets import RECAPTCHAWidget
+from sitetools.forms.widgets import RECAPTCHAWidget, LocationWidget
 
 class EULAField(forms.Field):
     """
@@ -97,44 +97,33 @@ class RECAPTCHAField(forms.Field):
         if (return_code!="true"):
             raise forms.ValidationError(_('Invalid verification'))
 
-class TinyMCEWidget(forms.Textarea):
+class LocationFormField(forms.MultiValueField):
     """
-    TinyMCE HTML editor widget
+    Location field
     """
-    class Media:
+    def __init__(self, *args, **kwargs):
         """
-        Media class
+        Class initialization method
         """
-        extend = False
-        js = ('//tinymce.cachefly.net/4.0/tinymce.min.js',)
+        error_messages = {
+            'incomplete': _('Must fill both latitude and longitude'),
+        }
+        fields=[forms.FloatField(),forms.FloatField()]
+        for field in fields:
+            field.error_messages={}
+        kwargs['widget']=LocationWidget
+        super(LocationFormField, self).__init__(error_messages=error_messages,fields=fields, *args, **kwargs)
 
-    def __init__(self, attrs=None):
-        final_attrs = {'class': 'tinymce'}
-        if attrs is not None:
-            final_attrs.update(attrs)
-        super(TinyMCEWidget, self).__init__(attrs=final_attrs)
-
-    def render(self, name, value, attrs=None):
-        output=super(TinyMCEWidget, self).render(name, value, attrs)
-        return mark_safe(output + "<script>tinymce.init({selector: '.tinymce', menubar:false, statusbar: false,});</script>")
-
-class AceEditorWidget(forms.Textarea):
-    """
-    Ace code editor widget
-    """
-    class Media:
+    def compress(self,data_list):
         """
-        Media class
+        Data compression method
         """
-        extend = False
-        js = ('//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',)
+        return dict(zip(('lat','lon'),data_list))
 
-    def __init__(self, attrs=None):
-        final_attrs = {'class': 'aceeditor'}
-        if attrs is not None:
-            final_attrs.update(attrs)
-        super(AceEditorWidget, self).__init__(attrs=final_attrs)
-
-    def render(self, name, value, attrs=None):
-        output=super(AceEditorWidget, self).render(name, value, attrs)
-        return mark_safe(output + "<script>var editor = ace.edit('.aceeditor');</script>")
+    def clean(self,value):
+        """
+        Cleaning method
+        """
+        if value[0] and not value[1] or not value[0] and value[1]:
+            raise forms.ValidationError(self.error_messages['incomplete'])
+        return super(LocationFormField,self).clean(value)

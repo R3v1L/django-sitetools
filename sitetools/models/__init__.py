@@ -44,6 +44,9 @@ class SiteInfo(models.Model):
         help_text=_('Specify if this site is currently under maintenance'))
     active=models.BooleanField(_('Active'),default=False,
         help_text=_('Specifies if this site is currently active'))
+    # TODO: Cookies policy, alert, legal terms, etc for this site
+    # cookiesalert
+    # legaldocument
 
     def __unicode__(self):
         """

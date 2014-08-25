@@ -18,6 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Application imports
 from sitetools import enums
+from sitetools.forms.fields import LocationFormField
 
 class CountryField(models.CharField):
     """
@@ -112,3 +113,40 @@ class JSONField(EncodedField):
         except:
             # Encode current value as JSON and return it
             return json.dumps([value])
+
+class LocationField(JSONField):
+    """
+    Location field class
+    """
+    description = _('JSON encoded latitude and longitude')
+    __metaclass__ = models.SubfieldBase
+
+    def formfield(self, **kwargs):
+        """
+        Form field method overload
+        """
+        return super(LocationField,self).formfield(form_class=LocationFormField,**kwargs)
+
+    def contribute_to_class(self, cls, name):
+        """
+        Contribute to class adding get_FIELD_display method to the model containing this field
+        """
+        def get_location_display(modelobj,lang=None):
+            """
+            Function to show location coordinates
+            """
+            data=getattr(modelobj,name)
+            if data:
+                return '(%s,%s)' % (data['lat'],data['lon'])
+            return None
+        
+        # TODO: Set verbose name for field in short description for display method
+        #get_location_display.short_description=getattr(cls,name).verbose_name
+        #get_location_display.short_description=getattr(cls,name).verbose_name
+        #getattr(cls, 'get_%s_display' % name).short_description=getattr(cls,name).short_description
+
+        # Set attribute
+        setattr(cls, 'get_%s_display' % name, get_location_display)
+        
+        # Call original method
+        super(LocationField,self).contribute_to_class(cls, name)
