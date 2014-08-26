@@ -102,7 +102,7 @@ class SiteLog(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     @staticmethod
-    def log(tag,message,data=None,level=INFO,content_object=None,request=None,ip=None,user=None,site=None,mail_admins=False,callback=None):
+    def log(tag,message,data=None,level=INFO,content_object=None,request=None,ip=None,user=None,site=None,mail_admins=False,callback=None,**kwargs):
         """
         Logs a message into site log
         """
@@ -153,7 +153,10 @@ class SiteLog(models.Model):
 
         # Callback execution
         if callback is not None:
-            return callback(log)
+            return callback(log,**kwargs)
+
+        # Return log object
+        return log
 
     def __unicode__(self):
         """
