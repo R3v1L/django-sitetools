@@ -109,12 +109,12 @@ class LocationWidget(forms.MultiWidget):
         """
         Decompress value
         """
-        if value:
-            return [value.get('lat',None),value.get('lon',None)]
-        return []
+        if value and isinstance(value,dict):
+            return [str(value.get('lat',None)),value.get('lon',None)]
+        return [None,None]
 
     def format_output(self,rendered_widgets):
         """
         Return formatted output            
         """
-        return u'%s,%s' % (rendered_widgets[0],rendered_widgets[1])
+        return u'%s, %s' % (rendered_widgets[0],rendered_widgets[1])

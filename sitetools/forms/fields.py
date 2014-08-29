@@ -112,6 +112,8 @@ class LocationFormField(forms.MultiValueField):
         for field in fields:
             field.error_messages={}
         kwargs['widget']=LocationWidget
+        if 'max_length' in kwargs:
+            del(kwargs['max_length'])
         super(LocationFormField, self).__init__(error_messages=error_messages,fields=fields, *args, **kwargs)
 
     def compress(self,data_list):

@@ -105,14 +105,14 @@ class JSONField(EncodedField):
         Python object casting method
         """
         if not value:
-            return []
+            return {}
         elif isinstance(value, (list,dict)):
             return value
         try:
             return json.loads(value)
         except:
             # Encode current value as JSON and return it
-            return json.dumps([value])
+            return json.dumps(value)
 
 class LocationField(JSONField):
     """
@@ -139,7 +139,7 @@ class LocationField(JSONField):
             if data:
                 return '(%s,%s)' % (data['lat'],data['lon'])
             return None
-        
+
         # TODO: Set verbose name for field in short description for display method
         #get_location_display.short_description=getattr(cls,name).verbose_name
         #get_location_display.short_description=getattr(cls,name).verbose_name
