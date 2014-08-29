@@ -261,9 +261,9 @@ class LegalDocumentAcceptanceAdmin(BaseModelAdmin):
     """
     Administration class
     """
-    search_fields = ('documentversion__document__name', 'documentversion__version','user__firstname','user__lastname','desc','data')
     list_display = ('__unicode__','timestamp','documentversion','user','desc')
     list_filter = ('timestamp','documentversion','user',)
+    search_fields = ('documentversion__document__name','documentversion__version','user__first_name','user__last_name','desc','data',)
 
 # Admin models registration
 admin.site.register(SiteInfo, SiteInfoAdmin)
