@@ -9,6 +9,9 @@ Site tools widgets module
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
+# Python imports
+import uuid, json
+
 # Django imports
 from django import forms
 from django.utils.safestring import mark_safe
@@ -94,9 +97,19 @@ class AceEditorWidget(forms.Textarea):
 class LocationWidget(forms.MultiWidget):
     """
     Location widget
-    
-    TODO: Location picker using Google Maps
+
+    Picker: http://api.mygeoposition.com/geopicker/
     """
+    class Media:
+        """
+        Widget media class
+        """
+        js = (
+            # 'https://code.jquery.com/jquery-1.10.2.min.js',
+            # 'http://maps.google.com/maps/api/js?sensor=false&libraries=places',
+            'http://api.mygeoposition.com/api/geopicker/api.js',
+        )
+
     def __init__(self,attrs={}):
         """
         Initialization method
@@ -113,8 +126,32 @@ class LocationWidget(forms.MultiWidget):
             return [str(value.get('lat',None)),value.get('lon',None)]
         return [None,None]
 
-    def format_output(self,rendered_widgets):
+    def render(self, name, value, attrs=None):
+        HTML="""
+            <script type="text/javascript">
+                function fn%s_location_popup() {            
+                    myGeoPositionGeoPicker({
+                        startPositionLat : '%s',
+                        startPositionLng : '%s',
+                        zoomLevel: 10,
+                        returnFieldMap   : {
+                                             'id_%s_0' : '<LAT>',
+                                             'id_%s_1' : '<LNG>',
+                                           }
+                    });
+                }
+            </script>
+            <input id="id_%s_0" name="%s_0" step="any" type="number" value="%s">
+            <input id="id_%s_1" name="%s_1" step="any" type="number" value="%s">
+            <button type="button" onclick="fn%s_location_popup();">&gt;</button>
         """
-        Return formatted output            
-        """
-        return u'%s, %s' % (rendered_widgets[0],rendered_widgets[1])
+        try:
+            if not isinstance(value, dict):
+                value=json.loads(value)
+            lat=value['lat']
+            lon=value['lon']
+        except:
+            lat=0
+            lon=0
+        uniqueid=str(uuid.uuid4()).replace('-','')
+        return mark_safe(HTML % (uniqueid, lat, lon, name, name, name, name, lat, name, name, lon, uniqueid))

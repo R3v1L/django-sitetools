@@ -67,12 +67,14 @@ class EncodedField(models.TextField):
         self.decodecb=kwargs.pop('decoder',None)
         if self.decodecb is None:
             raise ValueError(_('No decoder callback defined'))
+        kwargs['default']=self.encodecb(kwargs['default'])
         super(EncodedField,self).__init__(*args, **kwargs)
     
     def dummy_encode_decode(self,value):
         """
         Dummy enconde/decode method for raising not implemented error
         """
+        raise NotImplementedError()
 
     def to_python(self,value):
         """
