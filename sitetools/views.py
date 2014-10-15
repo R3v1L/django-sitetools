@@ -21,7 +21,7 @@ from django.conf import settings
 
 # Application imports
 from sitetools.http import JSONResponse
-from sitetools.utils import get_client_ip,get_site_from_request
+from sitetools.utils import get_client_ip,get_site_from_request,static_serve
 from sitetools.models import LegalDocument, LegalDocumentAcceptance
 
 def close_cookies_alert(req):
@@ -61,6 +61,13 @@ def robots(request,template_name='robots.txt',options={}):
         pass
     # Return robots.txt contents
     return HttpResponse(data,content_type='text/plain')
+
+def favicon(request,iconfile='favicon.ico',options={}):
+    """
+    Favicon view
+    """
+    # Return icon
+    return static_serve('%s/%s' % (settings.STATIC_ROOT,iconfile))
 
 def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
