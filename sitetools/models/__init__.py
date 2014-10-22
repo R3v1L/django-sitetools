@@ -12,12 +12,14 @@
 # Python imports
 import sys
 import traceback
+import json
 
 # Django imports
 from django.db import models
 from django.contrib.sites.models import Site
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext,ugettext_lazy as _
 from django.core.mail import mail_admins as django_mail_admins
+from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -44,15 +46,110 @@ class SiteInfo(models.Model):
         help_text=_('Specify if this site is currently under maintenance'))
     active=models.BooleanField(_('Active'),default=False,
         help_text=_('Specifies if this site is currently active'))
-    # TODO: Cookies policy, alert, legal terms, etc for this site
-    # cookiesalert
-    # legaldocument
+
+    def get_vars(self,varnames=None):
+        """
+        Get all site variables in a dictionary
+        """
+        varlist=SiteVar.objects.filter(site=self)
+        if varnames:
+            varlist=varlist.filter(name__in=varlist)
+        data={}
+        for var in varlist:
+            data[var.name]=var.get_value()
+        return data
+
+    def get_var(self,name,default=None):
+        """
+        Get a variable value for this site
+        """
+        var=self.get_vars([name])
+        return var.get('name',default)
 
     def __unicode__(self):
         """
         Unicode representation
         """
         return self.site.domain
+
+class SiteVar(models.Model):
+    """
+    Site variables model
+    """
+    VAR_UNICODE='unicode'
+    VAR_INT='int'
+    VAR_FLOAT='float'
+    VAR_BOOL='bool'
+    VAR_LIST='list'
+    VAR_DICT='dict'
+    VAR_JSON='json'
+
+    VAR_TYPES=(
+        (VAR_UNICODE,_('Unicode string')),
+        (VAR_INT,_('Integer')),
+        (VAR_FLOAT,_('Floating point number')),
+        (VAR_BOOL,_('Boolean')),
+        (VAR_LIST,_('List')),
+        (VAR_DICT,_('Dictionary')),
+        (VAR_JSON,_('JSON data')),
+    )
+
+    class Meta:
+        """
+        Metadata for this model
+        """
+        verbose_name=_('Site variable')
+        verbose_name_plural=_('Site variables')
+    
+    site=models.ForeignKey(SiteInfo,verbose_name=_('Site'),
+        help_text=_('Site this variable is bound to'))
+    name=models.CharField(_('Name'),max_length=50,
+        help_text=_('Variable name'))
+    type=models.CharField(_('Type'),max_length=15,choices=VAR_TYPES,default=VAR_UNICODE,
+        help_text=_('Variable type'))
+    value=models.TextField(_('Value'),
+        help_text=_('Current variable value'))
+
+    def clean(self):
+        """
+        Model clean method
+        """
+        if self.type not in dict(self.VAR_TYPES).keys():
+            raise ValidationError(ugettext('Invalid type selected: %s') % self.get_type_display())
+        try:
+            self.get_value()
+        except:
+            raise ValidationError(ugettext('Invalid value specified for type %s') % self.get_type_display())
+
+    def get_value(self):
+        """
+        Get this variable value in specified type
+        """
+        if self.type == self.VAR_INT:
+            value=int(self.value)
+        elif self.type == self.VAR_FLOAT:
+            value=float(self.value)
+        elif self.type == self.VAR_BOOL:
+            value=self.value.lower()
+            if self.value.lower() in ['true','false']:
+                value=value=='true'
+            else:
+                raise ValueError(ugettext('Invalid value for boolean conversion. Must be either True or False strings: %s') % self.value)
+        elif self.type == self.VAR_LIST:
+            value=list(self.value)
+        elif self.type == self.VAR_DICT:
+            value=dict(self.value)
+        elif self.type == self.VAR_JSON:
+            value=json.loads(self.value)
+        else:
+            value=self.value
+        return value
+
+    def __unicode__(self):
+        """
+        Unicode representation
+        """
+        return self.name
 
 class SiteLog(models.Model):
     """

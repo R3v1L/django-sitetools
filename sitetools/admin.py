@@ -25,8 +25,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.conf import settings
 
 # Application imports
-from sitetools.models import SiteInfo
-from sitetools.models import SiteLog
+from sitetools.models import SiteInfo, SiteLog, SiteVar
 from sitetools.models import LegalDocument, LegalDocumentVersion, LegalDocumentAcceptance
 
 class EnhancedDateFieldListFilter(FieldListFilter):
@@ -190,6 +189,13 @@ class BaseGenericTabularInline(BaseModelAdminLogic,GenericTabularInline):
     """
     extra = 0
 
+
+class SiteVarInline(BaseTabularInline):
+    """
+    Site log inline administration class
+    """
+    model = SiteVar
+
 class SiteInfoAdmin(BaseModelAdmin):
     """
     Administration class
@@ -199,6 +205,7 @@ class SiteInfoAdmin(BaseModelAdmin):
     list_filter = ('active','maintenance')
     search_fields = ('site__domain','site__name')
     list_editable = ('active','maintenance')
+    inlines = [SiteVarInline,]
 
 class SiteLogInline(BaseGenericTabularInline):
     """
