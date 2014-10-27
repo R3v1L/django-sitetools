@@ -126,3 +126,10 @@ def generate_expiration_date(seconds=604800):
     """
     date = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
     return date.strftime('%a, %d %b %Y %H:%M:%S GMT')
+
+def last_file_modification_date(*args,**kwargs):
+    try:
+        mtime=os.path.getmtime(settings.STATIC_ROOT + kwargs['path'])
+        return datetime.datetime.fromtimestamp(mtime)
+    except:
+        return datetime.datetime.now()
