@@ -20,6 +20,7 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext,ugettext_lazy as _
 from django.core.mail import mail_admins as django_mail_admins
 from django.core.exceptions import ValidationError
+from django.template import Template, Context, RequestContext
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -405,3 +406,46 @@ class LegalDocumentAcceptance(models.Model):
         Model unicode representation
         """
         return u'%s: %s' % (self.user,self.documentversion)
+
+class DBTemplate(models.Model):
+    """
+    Database template model class
+    """
+    
+    class Meta:
+        """
+        Metadata for this model
+        """
+        verbose_name=_('Database template')
+        verbose_name_plural=_('Database templates')
+
+    # Fields
+    slug=models.SlugField(_('Slug'),max_length=50,unique=True,
+        help_text=_('Template slug'))
+    content=models.TextField(_('Content'),blank=True,null=True,
+        help_text=_('Template contents'))
+
+    def get_template(self):
+        """
+        Returns Django template object
+        """
+        return Template(self.content)
+
+    def render(self,request=None,context={}):
+        """
+        Template rendering method
+
+        If request is passed then we use a requestcontext
+        """
+        if request:
+            ctx = RequestContext(request, context)
+        else:
+            ctx = Context(context)
+        return self.get_template().render(ctx)
+
+    # Methods
+    def __unicode__(self):
+        """
+        Return model unicode representation
+        """
+        return self.slug

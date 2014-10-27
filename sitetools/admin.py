@@ -27,6 +27,7 @@ from django.conf import settings
 # Application imports
 from sitetools.models import SiteInfo, SiteLog, SiteVar
 from sitetools.models import LegalDocument, LegalDocumentVersion, LegalDocumentAcceptance
+from sitetools.models import DBTemplate
 
 class EnhancedDateFieldListFilter(FieldListFilter):
     """
@@ -278,6 +279,7 @@ admin.site.register(SiteLog, SiteLogAdmin)
 admin.site.register(LegalDocument, LegalDocumentAdmin)
 admin.site.register(LegalDocumentVersion, LegalDocumentVersionAdmin)
 admin.site.register(LegalDocumentAcceptance, LegalDocumentAcceptanceAdmin)
+admin.site.register(DBTemplate)
 
 # Register enhanced field filters
 FieldListFilter.register(

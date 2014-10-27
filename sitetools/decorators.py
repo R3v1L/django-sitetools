@@ -30,9 +30,9 @@ def ajax_or_redirect(redirect_url='/'):
     """
     def decorator(view_func):
         @wraps(view_func, assigned=available_attrs(view_func))
-        def _wrapped_view(req, *args, **kwargs):
-            if req.is_ajax():
-                return view_func(req, *args, **kwargs)
+        def _wrapped_view(request, *args, **kwargs):
+            if request.is_ajax():
+                return view_func(request, *args, **kwargs)
             return HttpResponseRedirect(redirect_url)
         return _wrapped_view
     return decorator
@@ -44,21 +44,21 @@ def check_ip(ip_list,errorcode=403,redirect_url=None):
 
     :param ip_list: List of allowed IP addresses
     :type ip_list: list    
-    :param statuscode: Status code for denied requests
+    :param statuscode: Status code for denied request
     :type statuscode: int
     :param redirect_url: Value to be checked
     :type redirect_url: An absolute or relative URL
     """
     def decorator(view_func):
         @wraps(view_func, assigned=available_attrs(view_func))
-        def _wrapped_view(req, *args, **kwargs):
-            ip=get_client_ip(req)
+        def _wrapped_view(request, *args, **kwargs):
+            ip=get_client_ip(request)
             if ip not in ip_list:
                 if redirect_url is not None:
                     return HttpResponseRedirect(redirect_url) 
                 else:
                     return HttpResponse(status=errorcode)
-            return view_func(req, *args, **kwargs)
+            return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator
 
@@ -67,8 +67,8 @@ def ajax_or_404(view_func):
     Decorator for views that checks that the request is an AJAX request, showing a
     404 error page if it is not.
     """
-    def _wrapped_view(req, *args, **kwargs):
-        if req.is_ajax():
-            return view_func(req, *args, **kwargs)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.is_ajax():
+            return view_func(request, *args, **kwargs)
         raise Http404
     return _wrapped_view
