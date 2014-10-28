@@ -22,6 +22,9 @@ from django.utils import six
 from django.utils.translation import ugettext
 from django.conf import settings
 
+# Application imports
+from sitetools.http import StaticSendFileResponse
+
 def inject_app_defaults(appname):
     """
     Inject an application's default settings
@@ -110,13 +113,12 @@ def send_mail_to_admins(subject_template_name,email_template_name,request=None,c
     message=render_to_string(email_template_name, context)
     mail_admins(subject, message, fail_silently=True)
 
-def static_serve(filepath,download_as=None,*args,**kwargs):
+def static_serve(filepath,*args,**kwargs):
     """
     Static serve tool function
     """
     if os.path.exists(filepath) and not os.path.isdir(filepath):
-        from sitetools.http import StaticSendFileResponse
-        return StaticSendFileResponse(filepath,download_as=download_as,*args,**kwargs)
+        return StaticSendFileResponse(filepath,*args,**kwargs)
     else:
         raise Http404(ugettext('Requested file "%s" does not exist') % filepath)
 
