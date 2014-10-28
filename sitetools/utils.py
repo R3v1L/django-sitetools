@@ -22,9 +22,6 @@ from django.utils import six
 from django.utils.translation import ugettext
 from django.conf import settings
 
-# Application imports
-from sitetools.http import StaticSendFileResponse
-
 def inject_app_defaults(appname):
     """
     Inject an application's default settings
@@ -118,6 +115,7 @@ def static_serve(filepath,*args,**kwargs):
     Static serve tool function
     """
     if os.path.exists(filepath) and not os.path.isdir(filepath):
+        from sitetools.http import StaticSendFileResponse
         return StaticSendFileResponse(filepath,*args,**kwargs)
     else:
         raise Http404(ugettext('Requested file "%s" does not exist') % filepath)
