@@ -9,6 +9,9 @@
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
+# Python imports
+import os
+
 # Django imports
 from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
@@ -71,11 +74,11 @@ def favicon(request,iconfile='favicon.ico',options={}):
     return static_serve('%s/%s' % (settings.STATIC_ROOT,iconfile))
 
 @last_modified(last_file_modification_date)
-def static_serve_view(req,path):
+def static_serve_view(req,path,root=settings.STATIC_ROOT):
     """
     Static serving
     """
-    return static_serve( settings.STATIC_ROOT + path,extra_headers={'Expires': generate_expiration_date() })
+    return static_serve(os.path.join(root,path),extra_headers={'Expires': generate_expiration_date()})
 
 def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
