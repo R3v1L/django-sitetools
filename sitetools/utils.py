@@ -110,13 +110,13 @@ def send_mail_to_admins(subject_template_name,email_template_name,request=None,c
     message=render_to_string(email_template_name, context)
     mail_admins(subject, message, fail_silently=True)
 
-def static_serve(filepath,download_as=None,*args,**kwargs):
+def static_serve(filepath,*args,**kwargs):
     """
     Static serve tool function
     """
     if os.path.exists(filepath) and not os.path.isdir(filepath):
         from sitetools.http import StaticSendFileResponse
-        return StaticSendFileResponse(filepath,download_as=download_as,*args,**kwargs)
+        return StaticSendFileResponse(filepath,*args,**kwargs)
     else:
         raise Http404(ugettext('Requested file "%s" does not exist') % filepath)
 
@@ -126,3 +126,10 @@ def generate_expiration_date(seconds=604800):
     """
     date = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
     return date.strftime('%a, %d %b %Y %H:%M:%S GMT')
+
+def last_file_modification_date(*args,**kwargs):
+    try:
+        mtime=os.path.getmtime(settings.STATIC_ROOT + kwargs['path'])
+        return datetime.datetime.fromtimestamp(mtime)
+    except:
+        return datetime.datetime.now()

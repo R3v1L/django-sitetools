@@ -9,6 +9,9 @@
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
+# Python imports
+import os
+
 # Django imports
 from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
@@ -18,10 +21,11 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.conf import settings
+from django.views.decorators.http import last_modified
 
 # Application imports
 from sitetools.http import JSONResponse
-from sitetools.utils import get_client_ip,get_site_from_request,static_serve
+from sitetools.utils import get_client_ip,get_site_from_request,static_serve,last_file_modification_date,generate_expiration_date
 from sitetools.models import LegalDocument, LegalDocumentAcceptance
 
 def close_cookies_alert(req):
@@ -68,6 +72,13 @@ def favicon(request,iconfile='favicon.ico',options={}):
     """
     # Return icon
     return static_serve('%s/%s' % (settings.STATIC_ROOT,iconfile))
+
+@last_modified(last_file_modification_date)
+def static_serve_view(req,path,root=settings.STATIC_ROOT):
+    """
+    Static serving
+    """
+    return static_serve(os.path.join(root,path), extra_headers={'Expires': generate_expiration_date()})
 
 def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
     """
