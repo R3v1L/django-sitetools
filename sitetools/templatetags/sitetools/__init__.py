@@ -15,7 +15,7 @@ from django import template
 # Application imports
 from filters import shuffle_list,set_arg,call_method,get_range,without_lang,b64encode,html_decode # currency_formatter,file_size_formatter
 from tags.stringrender import stringrender_tag
-
+from tags.remote_content import remote_content_tag
 # Initialize template tag library
 register = template.Library()
 
@@ -32,3 +32,4 @@ register.filter('b64encode',b64encode)
 
 # Register tags
 register.tag('stringrender',stringrender_tag)
+register.tag('remote_content',remote_content_tag)
