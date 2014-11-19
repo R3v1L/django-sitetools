@@ -15,7 +15,7 @@ import sys, os, datetime
 # Django imports
 from django.contrib.sites.models import Site
 from django.template import RequestContext
-from django.core.mail import mail_admins, send_mail
+from django.core.mail import mail_admins, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import Http404
 from django.utils import six
@@ -85,10 +85,9 @@ def match_any(text,patternlist):
             return True 
     return False
 
-
 def send_mail_from_template(recipient_list,subject_template_name,email_template_name,
                             from_email=settings.DEFAULT_FROM_EMAIL,request=None,context={},
-                            fail_silently=False,auth_user=None, auth_password=None, connection=None,html=False):
+                            fail_silently=False,auth_user=None, auth_password=None, connection=None):
     """
     Send email rendering a template
     """
@@ -99,16 +98,14 @@ def send_mail_from_template(recipient_list,subject_template_name,email_template_
     message=render_to_string(email_template_name, context)
     send_mail(subject, message, from_email, recipient_list, fail_silently, auth_user, auth_password, connection)
 
-def send_mail_to_admins(subject_template_name,email_template_name,request=None,context={},fail_silently=True):
+def send_mail_to_admins(subject_template_name,email_template_name,request=None,context={},fail_silently=True, managers=False):
     """
     Send email to administrators
     """
-    if request:
-        context.update(RequestContext(request))
-    subject=render_to_string(subject_template_name, context)
-    subject=''.join(subject.splitlines())
-    message=render_to_string(email_template_name, context)
-    mail_admins(subject, message, fail_silently=True)
+    admins=[x[1] for x in settings.ADMINS]
+    if managers:
+        admins.extend([x[1] for x in settings.MANAGERS])
+    send_mail_from_template(admins, subject_template_name, email_template_name, fail_silently=fail_silently)
 
 def static_serve(filepath,*args,**kwargs):
     """
@@ -133,3 +130,20 @@ def last_file_modification_date(*args,**kwargs):
         return datetime.datetime.fromtimestamp(mtime)
     except:
         return datetime.datetime.now()
+
+def send_mail_alternatives(recipient_list,subject_template_name,email_template_name,html_template_name=None,
+                            from_email=settings.DEFAULT_FROM_EMAIL,request=None,context={}):
+    """
+    Send email rendering a template
+    If specified an HTML template, the mail will have an alternative content attached.
+    """
+    if request:
+        context.update(RequestContext(request))
+    subject=render_to_string(subject_template_name, context)
+    subject=''.join(subject.splitlines())
+    plaintext=render_to_string(email_template_name, context)
+    msg = EmailMultiAlternatives(subject,plaintext,from_email, recipient_list)
+    if html_template_name:
+        htmlcontent=render_to_string(html_template_name, context)
+        msg.attach_alternative(htmlcontent, 'text/html')
+    msg.send()
