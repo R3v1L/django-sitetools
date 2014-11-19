@@ -49,13 +49,18 @@ class I18NTextField(JSONField):
             data=getattr(modelobj,name)
             if lang is None:
                 lang=get_language()
+            value=''
             if lang in data:
-                return data[lang]
-            return ''
+                value=data[lang]
+            if not value:
+                if settings.LANGUAGE_CODE in data:
+                    value=data[settings.LANGUAGE_CODE]
+            return value
+        get_localized_version.short_description = name
         
         setattr(cls, 'localized_%s' % name, get_localized_version)
         for lang,langname in settings.LANGUAGES:
-            setattr(cls, 'localized_%s_%s' % (name,lang), curry(get_localized_version,lang=lang))
+            setattr(cls, '%s_%s' % (name,lang), curry(get_localized_version,lang=lang))
 
         # Call original method
         super(I18NTextField,self).contribute_to_class(cls, name)
