@@ -17,7 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 # Application imports
-from sitetools.forms.widgets import RECAPTCHAWidget, LocationWidget
+from sitetools.forms.widgets import RECAPTCHAWidget, LocationWidget, TinyMCEWidget, AceEditorWidget
 
 class EULAField(forms.Field):
     """
@@ -129,3 +129,26 @@ class LocationFormField(forms.MultiValueField):
         if value[0] and not value[1] or not value[0] and value[1]:
             raise forms.ValidationError(self.error_messages['incomplete'])
         return super(LocationFormField,self).clean(value)
+
+class TinyMCEField(forms.CharField):
+    """
+    HTML form field
+    """
+    def __init__(self,*args,**kwargs):
+        """
+        Class initialization
+        """
+        kwargs['widget']=TinyMCEWidget
+        super(TinyMCEField,self).__init__(*args,**kwargs)
+
+class AceEditorField(forms.CharField):
+    """
+    Code form field
+    """
+    def __init__(self,*args,**kwargs):
+        """
+        Class initialization
+        """
+        kwargs['widget']=AceEditorWidget
+        super(AceEditorField,self).__init__(*args,**kwargs)
+

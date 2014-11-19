@@ -64,18 +64,23 @@ class TinyMCEWidget(forms.Textarea):
         js = ('//tinymce.cachefly.net/4.0/tinymce.min.js',)
 
     def __init__(self, attrs=None):
-        final_attrs = {'class': 'tinymce'}
+        final_attrs = {
+            'class': 'tinymce',
+            'style': 'display: inline-block;'
+        }
         if attrs is not None:
             final_attrs.update(attrs)
         super(TinyMCEWidget, self).__init__(attrs=final_attrs)
 
     def render(self, name, value, attrs=None):
         output=super(TinyMCEWidget, self).render(name, value, attrs)
-        return mark_safe(output + "<script>tinymce.init({selector: '.tinymce', menubar:false, statusbar: false,});</script>")
+        return mark_safe(output + "\n<script>tinymce.init({selector: '#%s', menubar:false, statusbar: true });</script>" % attrs['id'])
 
 class AceEditorWidget(forms.Textarea):
     """
     Ace code editor widget
+
+    FIXME: Browser got locked with Ace initialization
     """
     class Media:
         """
@@ -92,7 +97,7 @@ class AceEditorWidget(forms.Textarea):
 
     def render(self, name, value, attrs=None):
         output=super(AceEditorWidget, self).render(name, value, attrs)
-        return mark_safe(output + "<script>var editor = ace.edit('.aceeditor');</script>")
+        return mark_safe(output + "<script>var editor = ace.edit('%s');</script></div>" % attrs['id'])
 
 class LocationWidget(forms.MultiWidget):
     """

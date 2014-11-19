@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Application imports
 from sitetools import enums
-from sitetools.forms.fields import LocationFormField
+from sitetools.forms.fields import LocationFormField, TinyMCEField, AceEditorField
 
 class CountryField(models.CharField):
     """
@@ -88,6 +88,34 @@ class EncodedField(models.TextField):
         """
         return self.encodecb(value)
 
+class HTMLField(models.TextField):
+    """
+    HTML field class
+    """
+    description = _('HTML field')
+    __metaclass__ = models.SubfieldBase
+
+    def formfield(self, **kwargs):
+        """
+        Form field method overload
+        """
+        kwargs.setdefault('form_class', TinyMCEField)
+        return super(HTMLField,self).formfield(**kwargs)
+
+class CodeField(models.TextField):
+    """
+    Code field class
+    """
+    description = _('Code field')
+    __metaclass__ = models.SubfieldBase
+
+    def formfield(self, **kwargs):
+        """
+        Form field method overload
+        """
+        kwargs.setdefault('form_class', AceEditorField)
+        return super(CodeField,self).formfield(**kwargs)
+
 class JSONField(EncodedField):
     """
     JSON data field
@@ -101,7 +129,14 @@ class JSONField(EncodedField):
         """
         kwargs.setdefault('default', [])
         super(JSONField,self).__init__(encoder=json.dumps,decoder=self.decode_json, *args, **kwargs)
-    
+
+    def formfield(self, **kwargs):
+        """
+        Form field method overload
+        """
+        kwargs.setdefault('form_class', AceEditorField)
+        return super(JSONField,self).formfield(**kwargs)
+
     def decode_json(self,value):
         """
         Python object casting method
@@ -127,7 +162,8 @@ class LocationField(JSONField):
         """
         Form field method overload
         """
-        return super(LocationField,self).formfield(form_class=LocationFormField,**kwargs)
+        kwargs.setdefault('form_class', LocationFormField)
+        return super(LocationField,self).formfield(**kwargs)
 
     def contribute_to_class(self, cls, name):
         """
