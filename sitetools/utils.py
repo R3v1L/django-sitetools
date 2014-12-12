@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 from django.http import Http404
 from django.utils import six
 from django.utils.translation import ugettext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 
 def inject_app_defaults(appname):
@@ -147,3 +148,32 @@ def send_mail_alternatives(recipient_list,subject_template_name,email_template_n
         htmlcontent=render_to_string(html_template_name, context)
         msg.attach_alternative(htmlcontent, 'text/html')
     msg.send()
+
+def paginate_queryset(qs,page=1,items_per_page=25,request=None):
+    """
+    Returns a paginated object for a queryset using request data
+
+    Will use "page" and "items" from GET parameters sent
+    """
+    # Obtain pagination parameters
+    if request is not None:
+        page=request.GET.get('page',page)
+        try:
+            items_per_page=request.GET.get('pageitems',items_per_page)    
+        except:
+            pass
+    
+    # Create paginator
+    paginator = Paginator(qs, items_per_page)
+
+    # Paginate queryset
+    try:
+        paginatedqs = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        paginatedqs = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        paginatedqs = paginator.page(paginator.num_pages)
+
+    return paginatedqs

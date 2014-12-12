@@ -128,7 +128,7 @@ class LocationWidget(forms.MultiWidget):
         Decompress value
         """
         if value and isinstance(value,dict):
-            return [str(value.get('lat',None)),value.get('lon',None)]
+            return [value.get('lat',None),value.get('lon',None)]
         return [None,None]
 
     def render(self, name, value, attrs=None):
@@ -156,7 +156,7 @@ class LocationWidget(forms.MultiWidget):
             lat=value['lat']
             lon=value['lon']
         except:
-            lat=0
-            lon=0
+            lat=''
+            lon=''
         uniqueid=str(uuid.uuid4()).replace('-','')
         return mark_safe(HTML % (uniqueid, lat, lon, name, name, name, name, lat, name, name, lon, uniqueid))

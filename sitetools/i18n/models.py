@@ -50,11 +50,12 @@ class I18NTextField(JSONField):
             if lang is None:
                 lang=get_language()
             value=''
-            if lang in data:
-                value=data[lang]
-            if not value:
-                if settings.LANGUAGE_CODE in data:
-                    value=data[settings.LANGUAGE_CODE]
+            if data:
+                if lang in data:
+                    value=data[lang]
+                if not value:
+                    if settings.LANGUAGE_CODE in data:
+                        value=data[settings.LANGUAGE_CODE]
             return value
         get_localized_version.short_description = name
         

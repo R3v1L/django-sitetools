@@ -120,6 +120,8 @@ class LocationFormField(forms.MultiValueField):
         """
         Data compression method
         """
+        if not data_list:
+            return None
         return dict(zip(('lat','lon'),data_list))
 
     def clean(self,value):

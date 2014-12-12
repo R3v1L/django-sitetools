@@ -127,7 +127,7 @@ class JSONField(EncodedField):
         """
         Initialization method
         """
-        kwargs.setdefault('default', [])
+        kwargs.setdefault('default', None)
         super(JSONField,self).__init__(encoder=json.dumps,decoder=self.decode_json, *args, **kwargs)
 
     def formfield(self, **kwargs):
@@ -141,6 +141,8 @@ class JSONField(EncodedField):
         """
         Python object casting method
         """
+        if value is None:
+            return None
         if not value:
             return {}
         elif isinstance(value, (list,dict)):
@@ -169,7 +171,7 @@ class LocationField(JSONField):
         """
         Contribute to class adding get_FIELD_display method to the model containing this field
         """
-        def get_location_display(modelobj,lang=None):
+        def get_location_display(modelobj):
             """
             Function to show location coordinates
             """

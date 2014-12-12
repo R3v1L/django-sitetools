@@ -72,3 +72,13 @@ def ajax_or_404(view_func):
             return view_func(request, *args, **kwargs)
         raise Http404
     return _wrapped_view
+
+def logged_in_or_403(view_func):
+    """
+    Decorator for views that check user login but not redirect to login page
+    """
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return view_func(request, *args, **kwargs)
+        return HttpResponseForbidden()
+    return _wrapped_view
