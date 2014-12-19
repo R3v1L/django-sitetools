@@ -10,6 +10,7 @@ Site tools model fields
 """
 # Python imports
 import json
+import pytz
 
 # Django imports
 from django.db import models
@@ -19,6 +20,8 @@ from django.utils.translation import ugettext_lazy as _
 # Application imports
 from sitetools import enums
 from sitetools.forms.fields import LocationFormField, TinyMCEField, AceEditorField
+
+TIMEZONE_CHOICES=[(x, x) for x in pytz.all_timezones]
 
 class CountryField(models.CharField):
     """
@@ -34,6 +37,21 @@ class CountryField(models.CharField):
         kwargs.setdefault('max_length', 2)
         kwargs.setdefault('choices', enums.COUNTRIES)
         super(CountryField, self).__init__(*args, **kwargs)
+
+class TimezoneField(models.CharField):
+    """
+    Timezone selection field
+    """
+    description = _('Time zone selection field')
+    __metaclass__ = models.SubfieldBase
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Class initialization method
+        """
+        kwargs.setdefault('max_length', 35)
+        kwargs.setdefault('choices', TIMEZONE_CHOICES)
+        super(TimezoneField, self).__init__(*args, **kwargs)
 
 class LanguageField(models.CharField):
     """
