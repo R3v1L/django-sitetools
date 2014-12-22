@@ -19,7 +19,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Application imports
 from sitetools import enums
-from sitetools.forms.fields import LocationFormField, TinyMCEField, AceEditorField
+from sitetools.forms.fields import LocationFormField, TinyMCEField #, AceEditorField
 
 TIMEZONE_CHOICES=[(x, x) for x in pytz.all_timezones]
 
@@ -131,7 +131,7 @@ class CodeField(models.TextField):
         """
         Form field method overload
         """
-        kwargs.setdefault('form_class', AceEditorField)
+        #kwargs.setdefault('form_class', AceEditorField)
         return super(CodeField,self).formfield(**kwargs)
 
 class JSONField(EncodedField):
@@ -152,7 +152,7 @@ class JSONField(EncodedField):
         """
         Form field method overload
         """
-        kwargs.setdefault('form_class', AceEditorField)
+        #kwargs.setdefault('form_class', AceEditorField)
         return super(JSONField,self).formfield(**kwargs)
 
     def decode_json(self,value):
