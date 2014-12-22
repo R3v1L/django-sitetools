@@ -139,15 +139,15 @@ class AdminImageFileWidget(AdminFileWidget):
         """
         HTML Rendering
         """
+        original=super(AdminFileWidget, self).render(name, value, attrs)
         output = []
-        file_name = str(value)
-        if file_name:
-            file_path = '%s%s' % (settings.MEDIA_URL, file_name)
+        if value:
+            file_path = '%s%s' % (settings.MEDIA_URL, unicode(value))
             output.append('<a target="_blank" href="%s"><img src="%s" height="100"/></a><br /><a target="_blank" href="%s">%s</a><br /> ' % \
                 (file_path, file_path, _('Currently:'), _('Change:')))
-
-        output.append(super(AdminFileWidget, self).render(name, value, attrs))
-        return mark_safe(u''.join(output))
+            output.append(original)
+            return mark_safe(u''.join(output))
+        return original
 
 class BaseModelAdminLogic(object):
     """
