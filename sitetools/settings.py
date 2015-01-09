@@ -56,3 +56,10 @@ SITE_LOG_MAIL_ADMINS_LEVEL = 0
 
 # Site template prefix
 SITE_TEMPLATE_PREFIX='site_templates'
+
+# Alert by email on new contact messages (Used in contact form view)
+CONTACT_MESSAGE_MAIL_ALERT=True
+
+# ReCAPTCHA keys
+RECAPTCHA_PUB_KEY=None
+RECAPTCHA_PRIV_KEY=None

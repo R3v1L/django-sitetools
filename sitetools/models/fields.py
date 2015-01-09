@@ -19,7 +19,8 @@ from django.utils.translation import ugettext_lazy as _
 
 # Application imports
 from sitetools import enums
-from sitetools.forms.fields import LocationFormField, TinyMCEField #, AceEditorField
+from sitetools import validators
+from sitetools.forms import LocationFormField, TinyMCEField #, AceEditorField
 
 TIMEZONE_CHOICES=[(x, x) for x in pytz.all_timezones]
 
@@ -105,6 +106,34 @@ class EncodedField(models.TextField):
         DB object casting method
         """
         return self.encodecb(value)
+
+class DjangoTemplateCodeCharField(models.CharField):
+    """
+    Django template code field class
+    """
+    description = _('Django template code character string field')
+    __metaclass__ = models.SubfieldBase
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initialization method
+        """
+        kwargs.setdefault('validators', [validators.django_template_code_validator,])
+        super(DjangoTemplateCodeCharField,self).__init__(*args, **kwargs)
+
+class DjangoTemplateCodeTextField(models.TextField):
+    """
+    Django template code field class
+    """
+    description = _('Django template code text field')
+    __metaclass__ = models.SubfieldBase
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initialization method
+        """
+        kwargs.setdefault('validators', [validators.django_template_code_validator,])
+        super(DjangoTemplateCodeTextField,self).__init__(*args, **kwargs)
 
 class HTMLField(models.TextField):
     """

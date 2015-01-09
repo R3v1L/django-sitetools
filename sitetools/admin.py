@@ -27,6 +27,7 @@ from django.conf import settings
 # Application imports
 from sitetools.models import SiteInfo, SiteLog, SiteVar
 from sitetools.models import LegalDocument, LegalDocumentVersion, LegalDocumentAcceptance
+from sitetools.models import ContactMessage
 from sitetools.models import DBTemplate
 
 class EnhancedDateFieldListFilter(FieldListFilter):
@@ -273,12 +274,21 @@ class LegalDocumentAcceptanceAdmin(BaseModelAdmin):
     list_filter = ('timestamp','documentversion','user',)
     search_fields = ('documentversion__document__name','documentversion__version','user__first_name','user__last_name','desc','data',)
 
+class ContactMessageAdmin(BaseModelAdmin):
+    """
+    Contact message administration class
+    """
+    list_display = ('timestamp','name','email','ip','replied')
+    search_fields = ('name','email','ip','text')
+    list_filter = ('timestamp','replied',)
+
 # Admin models registration
 admin.site.register(SiteInfo, SiteInfoAdmin)
 admin.site.register(SiteLog, SiteLogAdmin)
 admin.site.register(LegalDocument, LegalDocumentAdmin)
 admin.site.register(LegalDocumentVersion, LegalDocumentVersionAdmin)
 admin.site.register(LegalDocumentAcceptance, LegalDocumentAcceptanceAdmin)
+admin.site.register(ContactMessage, ContactMessageAdmin)
 admin.site.register(DBTemplate)
 
 # Register enhanced field filters

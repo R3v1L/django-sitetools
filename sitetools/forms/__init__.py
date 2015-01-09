@@ -1,11 +1,14 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Site tools forms module
+Site tools main forms module
 ===============================================
 
 .. module:: sitetools.forms
     :platform: Django
-    :synopsis: Site tools forms module
+    :synopsis: Site tools main forms module
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
+from sitetools.forms.fields import *
+from sitetools.forms.widgets import  *

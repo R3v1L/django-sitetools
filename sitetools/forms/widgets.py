@@ -1,20 +1,24 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Site tools widgets module
+Site tools form widgets module
 ===============================================
 
-.. module:: 
-    :platform: Unix, Windows
-    :synopsis: Site tools widgets module
+.. module:: sitetools.forms.widgets
+    :platform: Django
+    :synopsis: Site tools form widgets module
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 """
 
 # Python imports
+import urllib, urllib2
 import uuid, json
 
 # Django imports
 from django import forms
+from django.utils.translation import ugettext,ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 class RECAPTCHAWidget(forms.widgets.Input):
     """
@@ -160,3 +164,5 @@ class LocationWidget(forms.MultiWidget):
             lon=''
         uniqueid=str(uuid.uuid4()).replace('-','')
         return mark_safe(HTML % (uniqueid, lat, lon, name, name, name, name, lat, name, name, lon, uniqueid))
+
+

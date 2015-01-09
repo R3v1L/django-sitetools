@@ -10,12 +10,16 @@ Sitetools utility functions module
 """
 
 # Python imports
-import sys, os, datetime
+import sys
+import os
+import datetime
+import random
+import string
 
 # Django imports
 from django.contrib.sites.models import Site
 from django.template import RequestContext
-from django.core.mail import mail_admins, send_mail, EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import Http404
 from django.utils import six
@@ -132,8 +136,22 @@ def last_file_modification_date(*args,**kwargs):
     except:
         return datetime.datetime.now()
 
+def send_mail_alternatives_raw(recipient_list,subject,plaintext,html=None,
+                            from_email=settings.DEFAULT_FROM_EMAIL,request=None,extra_contents=[]):
+    """
+    Send email
+    If specified html, the mail will have an alternative content attached.
+    """
+    msg = EmailMultiAlternatives(subject, plaintext, from_email, recipient_list)
+    if html is not None:
+        msg.attach_alternative(html, 'text/html')
+    # Attach extra contents
+    for content,content_type in extra_contents:
+        msg.attach_alternative(content, content_type)
+    msg.send()
+
 def send_mail_alternatives(recipient_list,subject_template_name,email_template_name,html_template_name=None,
-                            from_email=settings.DEFAULT_FROM_EMAIL,request=None,context={}):
+                            from_email=settings.DEFAULT_FROM_EMAIL,request=None,context={},extra_contents=[]):
     """
     Send email rendering a template
     If specified an HTML template, the mail will have an alternative content attached.
@@ -143,11 +161,11 @@ def send_mail_alternatives(recipient_list,subject_template_name,email_template_n
     subject=render_to_string(subject_template_name, context)
     subject=''.join(subject.splitlines())
     plaintext=render_to_string(email_template_name, context)
-    msg = EmailMultiAlternatives(subject,plaintext,from_email, recipient_list)
     if html_template_name:
         htmlcontent=render_to_string(html_template_name, context)
-        msg.attach_alternative(htmlcontent, 'text/html')
-    msg.send()
+    else:
+        htmlcontent=None
+    send_mail_alternatives_raw(recipient_list,subject,plaintext,htmlcontent,from_email,request,extra_contents) 
 
 def paginate_queryset(qs,page=1,items_per_page=25,request=None):
     """
@@ -177,3 +195,13 @@ def paginate_queryset(qs,page=1,items_per_page=25,request=None):
         paginatedqs = paginator.page(paginator.num_pages)
 
     return paginatedqs
+
+def generate_unique_code(model,field,length=8,charset=string.digits + string.ascii_lowercase,filters={}):
+    """
+    Generate an unique value for a given field of a given model
+    
+    """
+    value=''.join([random.choice(charset) for x in range(length)])
+    while model.objects.filter(**{ field: value }).filter(**filters).count() > 0:
+        value=''.join([random.choice(charset) for x in range(length)])
+    return value

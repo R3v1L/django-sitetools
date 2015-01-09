@@ -22,11 +22,13 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.conf import settings
 from django.views.decorators.http import last_modified
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Application imports
 from sitetools.http import JSONResponse
 from sitetools.utils import get_client_ip,get_site_from_request,static_serve,last_file_modification_date,generate_expiration_date
-from sitetools.models import LegalDocument, LegalDocumentAcceptance
+from sitetools.forms.forms import ContactForm
+from sitetools.models import SiteLog, LegalDocument, LegalDocumentAcceptance
 
 def close_cookies_alert(req):
     """
@@ -123,3 +125,46 @@ def legal_document_acceptance(req,docid=None,version=None,template_name='legal/d
         'next': next,
     }
     return TemplateResponse(req, template_name, ctx)
+
+@ensure_csrf_cookie
+def contact_form_views(request,contact_form_template_name='sitetools/contact_form.html',legal_document_name=None,
+                    alert_by_mail=settings.CONTACT_MESSAGE_MAIL_ALERT,log_callback=None):
+    """
+    Contact form view
+    """
+    if req.method == 'POST':
+        # A form bound to the POST data
+        form = ContactForm(req.POST)
+        if form.is_valid():
+            # All validation rules pass. Process the data in form.cleaned_data
+            ip=get_client_ip(req)
+            form.instance.ip=ip
+            form.save()
+            # Save legal document acceptance
+            if legal_document_name:
+                user=None
+                if request.user.is_authenticated():
+                    user=request.user
+                # Add legal document acceptance
+                LegalDocumentAcceptance(documentversion=LegalDocument.get_document_version('avisolegal'),user=user,ip=ip,desc=_('Contact form'),data=form.instance.email).save()
+            # Save log entry
+            SiteLog.log('contact_form',_('New contact message from %(name)s %(email)s') % {'name': form.instance.name, 'email': form.instance.email},
+                    data={'messageid': form.instance.id, 'name': form.instance.name, 'email': form.instance.email, 'text': form.instance.text },
+                    content_object=form.instance,request=request,mail_admins=alert_by_mail,callback=log_callback)
+            # Redirect after post
+            return redirect(reverse('contactmessage_done'))
+    else:
+        # An unbound form
+        form = ContactForm()
+    ctx={
+        'form': form,
+    }
+    # Render page and return   
+    return render_to_response(contact_form_template_name,ctx,context_instance=RequestContext(request))
+
+def contact_thanks(req):
+    """
+    Advertise thanks message
+    """
+    template = 'serviciosx/contact/thanks.html'
+    return render_to_response(template,context_instance=RequestContext(req))

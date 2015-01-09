@@ -1,23 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Site tools form fields module
-===============================================
-
-.. module:: sitetools.forms.fields
-    :platform: Django
-    :synopsis: Site tools form fields module
-.. moduleauthor:: (C) 2014 Oliver Gutiérrez
-"""
 # Python imports
 import urllib, urllib2
+import uuid, json
 
 # Django imports
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext,ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
-# Application imports
-from sitetools.forms.widgets import RECAPTCHAWidget, LocationWidget, TinyMCEWidget, AceEditorWidget
+# Site tools imports
+from sitetools.forms.widgets import RECAPTCHAWidget,LocationWidget
 
 class EULAField(forms.Field):
     """
@@ -47,13 +39,15 @@ class RECAPTCHAField(forms.Field):
     """
     reCATCHA form field class
     """
-    def __init__(self,pubkey,privkey,
+    def __init__(self,pubkey=settings.RECAPTCHA_PUB_KEY,privkey=settings.RECAPTCHA_PRIV_KEY,
                  api_server='https://www.google.com/recaptcha/api',
                  verify_server='https://www.google.com/recaptcha/api/verify',
                  *args,**kwargs):
         """
         Class initialization
         """
+        if not pubkey or not privkey:
+            raise ValueError(ugettext('You must specify reCAPTCHA public and private keys either in settings file or at initialization'))
         self.pubkey=pubkey
         self.privkey=privkey
         self.api_server=api_server
@@ -69,7 +63,7 @@ class RECAPTCHAField(forms.Field):
         captcharesp=value[1]
         # Check captcha input
         if not (captcharesp and challenge and len(captcharesp) and len(challenge)):
-            raise forms.ValidationError(_('Invalid verification'))
+            raise forms.ValidationError(ugettext('Invalid verification'))
         # Generate request to recaptcha servers
         verifreq = urllib2.Request (
             url = self.verify_server,
@@ -153,4 +147,3 @@ class AceEditorField(forms.CharField):
         """
         kwargs['widget']=AceEditorWidget
         super(AceEditorField,self).__init__(*args,**kwargs)
-
