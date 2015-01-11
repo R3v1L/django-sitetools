@@ -11,29 +11,30 @@ Site tools form widgets module
 """
 
 # Python imports
-import urllib, urllib2
-import uuid, json
+import uuid
+import json
+import warnings
 
 # Django imports
 from django import forms
-from django.utils.translation import ugettext,ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.safestring import mark_safe
-from django.conf import settings
+
 
 class RECAPTCHAWidget(forms.widgets.Input):
     """
     reCAPTCHA field widget
     """
-    def __init__(self,api_server,pubkey,lang='en',theme='red',*args,**kwargs):
+    def __init__(self, api_server, pubkey, lang='en', theme='red', *args, **kwargs):
         """
         Initialization method
         """
-        self.lang=lang
-        self.theme=theme
-        self.pubkey=pubkey
-        self.api_server=api_server
-        super(RECAPTCHAWidget,self).__init__(*args,**kwargs)
-    
+        self.lang = lang
+        self.theme = theme
+        self.pubkey = pubkey
+        self.api_server = api_server
+        super(RECAPTCHAWidget, self).__init__(*args, **kwargs)
+
     def render(self, name, value, attrs={}):
         """
         Render method overload
@@ -48,13 +49,14 @@ class RECAPTCHAWidget(forms.widgets.Input):
            <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
         </noscript>
         <input id="%s" type="text" name="recaptcha_django_field" value="" style="display: none;">
-        """ % (self.theme,self.lang,self.api_server,self.pubkey,self.api_server,self.pubkey,attrs['id']))
+        """ % (self.theme, self.lang, self.api_server, self.pubkey, self.api_server, self.pubkey, attrs['id']))
 
     def value_from_datadict(self, data, files, name):
         """
         Obtaining data from form submission
         """
-        return (data.get('recaptcha_challenge_field',None),data.get('recaptcha_response_field',None))
+        return (data.get('recaptcha_challenge_field', None), data.get('recaptcha_response_field', None))
+
 
 class TinyMCEWidget(forms.Textarea):
     """
@@ -77,8 +79,9 @@ class TinyMCEWidget(forms.Textarea):
         super(TinyMCEWidget, self).__init__(attrs=final_attrs)
 
     def render(self, name, value, attrs=None):
-        output=super(TinyMCEWidget, self).render(name, value, attrs)
+        output = super(TinyMCEWidget, self).render(name, value, attrs)
         return mark_safe(output + "\n<script>tinymce.init({selector: '#%s', menubar:false, statusbar: true });</script>" % attrs['id'])
+
 
 class AceEditorWidget(forms.Textarea):
     """
@@ -94,14 +97,39 @@ class AceEditorWidget(forms.Textarea):
         js = ('//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',)
 
     def __init__(self, attrs=None):
+        warnings.warn(ugettext('Using AceEditorWidget will probably lock your browser.'))
         final_attrs = {'class': 'aceeditor'}
         if attrs is not None:
             final_attrs.update(attrs)
         super(AceEditorWidget, self).__init__(attrs=final_attrs)
 
     def render(self, name, value, attrs=None):
-        output=super(AceEditorWidget, self).render(name, value, attrs)
+        output = super(AceEditorWidget, self).render(name, value, attrs)
         return mark_safe(output + "<script>var editor = ace.edit('%s');</script></div>" % attrs['id'])
+
+
+class VectorWidget(forms.MultiWidget):
+    """
+    N dimensional float vector widget
+    """
+
+    def __init__(self, attrs={}):
+        """
+        Initialization method
+        """
+        self.dimensions = attrs['dimensions']
+        widgets = [forms.NumberInput for i in range(self.dimensions)]
+        attrs.setdefault('step', 'any')
+        super(VectorWidget, self).__init__(widgets=widgets, attrs=attrs)
+
+    def decompress(self, value):
+        """
+        Decompress value
+        """
+        if value and isinstance(value, (list, tuple)):
+            return [value[i] for i in range(self.dimensions)]
+        return [None for i in range(self.dimensions)]
+
 
 class LocationWidget(forms.MultiWidget):
     """
@@ -114,29 +142,27 @@ class LocationWidget(forms.MultiWidget):
         Widget media class
         """
         js = (
-            # 'https://code.jquery.com/jquery-1.10.2.min.js',
-            # 'http://maps.google.com/maps/api/js?sensor=false&libraries=places',
             'http://api.mygeoposition.com/api/geopicker/api.js',
         )
 
-    def __init__(self,attrs={}):
+    def __init__(self, attrs={}):
         """
         Initialization method
         """
-        widgets=[forms.NumberInput,forms.NumberInput]
+        widgets = [forms.NumberInput, forms.NumberInput]
         attrs.setdefault('step', 'any')
-        super(LocationWidget,self).__init__(widgets=widgets,attrs=attrs)
+        super(LocationWidget, self).__init__(widgets=widgets, attrs=attrs)
 
-    def decompress(self,value):
+    def decompress(self, value):
         """
         Decompress value
         """
-        if value and isinstance(value,dict):
-            return [value.get('lat',None),value.get('lon',None)]
-        return [None,None]
+        if value and isinstance(value, dict):
+            return [value.get('lat', None), value.get('lon', None)]
+        return [None, None]
 
     def render(self, name, value, attrs=None):
-        HTML="""
+        HTML = """
             <script type="text/javascript">
                 function fn%s_location_popup() {            
                     myGeoPositionGeoPicker({
@@ -156,13 +182,11 @@ class LocationWidget(forms.MultiWidget):
         """
         try:
             if not isinstance(value, dict):
-                value=json.loads(value)
-            lat=value['lat']
-            lon=value['lon']
+                value = json.loads(value)
+            lat = value['lat']
+            lon = value['lon']
         except:
-            lat=''
-            lon=''
-        uniqueid=str(uuid.uuid4()).replace('-','')
+            lat = ''
+            lon = ''
+        uniqueid = str(uuid.uuid4()).replace('-', '')
         return mark_safe(HTML % (uniqueid, lat, lon, name, name, name, name, lat, name, name, lon, uniqueid))
-
-
