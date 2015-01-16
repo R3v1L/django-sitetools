@@ -15,6 +15,7 @@ import os
 # Django imports
 from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext,ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse
@@ -76,13 +77,13 @@ def favicon(request,iconfile='favicon.ico',options={}):
     return static_serve('%s/%s' % (settings.STATIC_ROOT,iconfile))
 
 @last_modified(last_file_modification_date)
-def static_serve_view(req,path,root=settings.STATIC_ROOT):
+def static_serve_view(request,path,root=settings.STATIC_ROOT):
     """
     Static serving
     """
     return static_serve(os.path.join(root,path), extra_headers={'Expires': generate_expiration_date()})
 
-def legal_document_view(req,docid=None,version=None, template_name='legal/document_view.html'):
+def legal_document_view(request,docid=None,version=None, template_name='legal/document_view.html'):
     """
     View for legal documents
     """
@@ -97,10 +98,10 @@ def legal_document_view(req,docid=None,version=None, template_name='legal/docume
         'document': document,
         'legalpage': True
     }
-    return TemplateResponse(req, template_name, ctx)
+    return TemplateResponse(request, template_name, ctx)
 
 @login_required
-def legal_document_acceptance(req,docid=None,version=None,template_name='legal/document_acceptance.html'):
+def legal_document_acceptance(request,docid=None,version=None,template_name='legal/document_acceptance.html'):
     """
     View for legal documents acceptance
     """
@@ -110,12 +111,12 @@ def legal_document_acceptance(req,docid=None,version=None,template_name='legal/d
         raise Http404(ugettext('No legal document matching given parameters'))
 
     # Get next URL
-    next=req.GET.get('next',None)
-    accepted=req.GET.get('accept',False)
+    next=request.GET.get('next',None)
+    accepted=request.GET.get('accept',False)
     if accepted:
         # Mark document as accepted
-        ip=get_client_ip(req)
-        LegalDocumentAcceptance(documentversion=document,user=req.user,ip=ip).save()
+        ip=get_client_ip(request)
+        LegalDocumentAcceptance(documentversion=document,user=request.user,ip=ip).save()
         if next is not None:
             return redirect(next)
         else:
@@ -124,20 +125,20 @@ def legal_document_acceptance(req,docid=None,version=None,template_name='legal/d
         'document': document,
         'next': next,
     }
-    return TemplateResponse(req, template_name, ctx)
+    return TemplateResponse(request, template_name, ctx)
 
 @ensure_csrf_cookie
-def contact_form_views(request,contact_form_template_name='sitetools/contact_form.html',legal_document_name=None,
+def contact_form_view(request,contact_form_template_name='sitetools/contact_form.html',legal_document_name=None,
                     alert_by_mail=settings.CONTACT_MESSAGE_MAIL_ALERT,log_callback=None):
     """
     Contact form view
     """
-    if req.method == 'POST':
+    if request.method == 'POST':
         # A form bound to the POST data
-        form = ContactForm(req.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             # All validation rules pass. Process the data in form.cleaned_data
-            ip=get_client_ip(req)
+            ip=get_client_ip(request)
             form.instance.ip=ip
             form.save()
             # Save legal document acceptance
@@ -152,7 +153,7 @@ def contact_form_views(request,contact_form_template_name='sitetools/contact_for
                     data={'messageid': form.instance.id, 'name': form.instance.name, 'email': form.instance.email, 'text': form.instance.text },
                     content_object=form.instance,request=request,mail_admins=alert_by_mail,callback=log_callback)
             # Redirect after post
-            return redirect(reverse('contactmessage_done'))
+            return redirect(reverse('contact_form_done'))
     else:
         # An unbound form
         form = ContactForm()
@@ -160,11 +161,10 @@ def contact_form_views(request,contact_form_template_name='sitetools/contact_for
         'form': form,
     }
     # Render page and return   
-    return render_to_response(contact_form_template_name,ctx,context_instance=RequestContext(request))
+    return TemplateResponse(request,contact_form_template_name,ctx)
 
-def contact_thanks(req):
+def contact_form_done_view(request, template_name='sitetools/contact_form_done.html'):
     """
-    Advertise thanks message
+    Contact form done view
     """
-    template = 'serviciosx/contact/thanks.html'
-    return render_to_response(template,context_instance=RequestContext(req))
+    return TemplateResponse(request, template_name)
