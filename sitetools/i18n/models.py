@@ -59,7 +59,7 @@ class I18NTextField(JSONField):
             return value
         get_localized_version.short_description = name
         
-        setattr(cls, 'localized_%s' % name, get_localized_version)
+        setattr(cls, 'localized_%s' % name, property(get_localized_version))
         for lang,langname in settings.LANGUAGES:
             setattr(cls, '%s_%s' % (name,lang), curry(get_localized_version,lang=lang))
 

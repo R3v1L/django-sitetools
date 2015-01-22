@@ -11,9 +11,18 @@ Site tools template filters
 # Python imports
 import random
 import base64
+import datetime
 
 # Django imports
 from django.conf import settings
+from django import template
+from django.utils.translation import ugettext
+
+def dict_lookup(d, key):
+    """
+    Return dictionary value for given key
+    """
+    return d[key]
 
 def shuffle_list(arg):
     """
@@ -79,3 +88,10 @@ def html_decode(s):
     for code in htmlcodes:
         s = s.replace(code[1], code[0])
     return s
+
+def month_name(number):
+    """
+    Return month name from a number between 1-12
+    """
+    return ugettext(datetime.datetime.strptime(str(number), "%m").strftime('%B'))
+    
