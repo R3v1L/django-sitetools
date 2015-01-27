@@ -17,9 +17,9 @@ import warnings
 
 # Django imports
 from django import forms
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.utils.safestring import mark_safe
-
+from django.utils.translation import get_language
 
 class RECAPTCHAWidget(forms.widgets.Input):
     """
@@ -57,7 +57,6 @@ class RECAPTCHAWidget(forms.widgets.Input):
         """
         return (data.get('recaptcha_challenge_field', None), data.get('recaptcha_response_field', None))
 
-
 class TinyMCEWidget(forms.Textarea):
     """
     TinyMCE HTML editor widget
@@ -80,7 +79,8 @@ class TinyMCEWidget(forms.Textarea):
 
     def render(self, name, value, attrs=None):
         output = super(TinyMCEWidget, self).render(name, value, attrs)
-        return mark_safe(output + "\n<script>tinymce.init({selector: '#%s', menubar:false, statusbar: true });</script>" % attrs['id'])
+        # TODO: Add language option (current cdn does not have language files)
+        return mark_safe(output + "\n<script>tinymce.init({selector: '#%s', menubar:false, statusbar: true, plugins: 'code fullscreen', toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code fullscreen' });</script>"  % attrs['id'])
 
 
 class AceEditorWidget(forms.Textarea):

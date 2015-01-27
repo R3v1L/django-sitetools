@@ -1,0 +1,11 @@
+{% load i18n %}
+<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<ul>
+	<li>
+		<select onchange="window.location=django.jQuery(this).val()">
+		{% for choice in choices %}
+		    <option {% if choice.selected %} selected{% endif %} value="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
+		{% endfor %}
+		</select>
+	</li>
+</ul>
