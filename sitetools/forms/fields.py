@@ -26,6 +26,8 @@ class EULAField(forms.Field):
                 label = kwargs.get('label', _('I accept the <a href="%s" target="_blank">terms and conditions</a>') % eula_url)
             else:
                 label = kwargs.get('label', _('I accept the terms and conditions') % eula_url)
+        else:
+            label=kwargs['label']
         kwargs['label'] = mark_safe(label)
         kwargs.setdefault('widget', forms.CheckboxInput())
         super(EULAField, self).__init__(*args, **kwargs)

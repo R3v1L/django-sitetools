@@ -199,7 +199,6 @@ def paginate_queryset(qs,page=1,items_per_page=25,request=None):
 def generate_unique_code(model,field,length=8,charset=string.digits + string.ascii_lowercase,filters={}):
     """
     Generate an unique value for a given field of a given model
-    
     """
     value=''.join([random.choice(charset) for x in range(length)])
     while model.objects.filter(**{ field: value }).filter(**filters).count() > 0:
