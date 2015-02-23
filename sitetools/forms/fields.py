@@ -52,7 +52,7 @@ class RECAPTCHAField(forms.Field):
         Class initialization
         """
         if not pubkey or not privkey:
-            warnings.warn(ugettext('You must specify reCAPTCHA public and private keys either in settings file or at RECAPTCHAField initialization'))
+            warnings.warn('You must specify reCAPTCHA public and private keys either in settings file or at RECAPTCHAField initialization')
         self.pubkey = pubkey
         self.privkey = privkey
         self.api_server = api_server

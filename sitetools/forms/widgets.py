@@ -97,7 +97,7 @@ class AceEditorWidget(forms.Textarea):
         js = ('//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',)
 
     def __init__(self, attrs=None):
-        warnings.warn(ugettext('Using AceEditorWidget will probably lock your browser.'))
+        warnings.warn('Using AceEditorWidget will probably lock your browser.')
         final_attrs = {'class': 'aceeditor'}
         if attrs is not None:
             final_attrs.update(attrs)
