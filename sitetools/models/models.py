@@ -82,7 +82,6 @@ class SiteVar(models.Model):
     VAR_FLOAT='float'
     VAR_BOOL='bool'
     VAR_LIST='list'
-    VAR_DICT='dict'
     VAR_JSON='json'
 
     VAR_TYPES=(
@@ -91,7 +90,6 @@ class SiteVar(models.Model):
         (VAR_FLOAT,_('Floating point number')),
         (VAR_BOOL,_('Boolean')),
         (VAR_LIST,_('List')),
-        (VAR_DICT,_('Dictionary')),
         (VAR_JSON,_('JSON data')),
     )
 
@@ -137,9 +135,7 @@ class SiteVar(models.Model):
             else:
                 raise ValueError(ugettext('Invalid value for boolean conversion. Must be either True or False strings: %s') % self.value)
         elif self.type == self.VAR_LIST:
-            value=list(self.value)
-        elif self.type == self.VAR_DICT:
-            value=dict(self.value)
+            value=[x.strip() for x in self.value.split(',')]
         elif self.type == self.VAR_JSON:
             value=json.loads(self.value)
         else:
