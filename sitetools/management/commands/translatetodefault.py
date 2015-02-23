@@ -56,5 +56,5 @@ class Command(BaseCommand):
 				if options['savemo']:
 					po.save_as_mofile('locale/%s/LC_MESSAGES/django.mo' % lang)
 			except Exception, e:
-				self.stdout.write(_('ERROR: Can not open %s: %s\n') % (filename,e))
+				self.stdout.write(_('ERROR: Can not open %(filename)s: %(error)s\n') % (filename,e))
 				# raise CommandError(_('Unexpected error raising anunciosx.com advertisements: %s') % e)

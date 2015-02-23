@@ -1,0 +1,1623 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django sitetools\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-23 10:30+0000\n"
+"PO-Revision-Date: 2015-02-23 10:31-0000\n"
+"Last-Translator: Oliver Gutiérrez <ogutsua@gmail.com>\n"
+"Language-Team: Oliver Gutiérrez <ogutsua@gmail.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: admin.py:66
+msgid "Any date"
+msgstr "Cualquier fecha"
+
+#: admin.py:67
+msgid "This year"
+msgstr "Este año"
+
+#: admin.py:71
+msgid "This month"
+msgstr "Este mes"
+
+#: admin.py:75
+msgid "Past 30 days"
+msgstr "Últimos 30 días"
+
+#: admin.py:79
+msgid "Past 15 days"
+msgstr "Últimos 15 días"
+
+#: admin.py:83
+msgid "Past 7 days"
+msgstr "Últimos 7 días"
+
+#: admin.py:87
+msgid "Yesterday"
+msgstr "Ayer"
+
+#: admin.py:91
+msgid "Today"
+msgstr "Hoy"
+
+#: admin.py:95
+msgid "Tomorrow"
+msgstr "Mañana"
+
+#: admin.py:99
+msgid "Next 7 days"
+msgstr "Próximos 7 días"
+
+#: admin.py:103
+msgid "Next 15 days"
+msgstr "Próximos 15 días"
+
+#: admin.py:107
+msgid "Next 30 days"
+msgstr "Próximos 30 días"
+
+#: admin.py:111
+msgid "Next month"
+msgstr "Próximo mes"
+
+#: admin.py:115
+msgid "Next year"
+msgstr "Próximo año"
+
+#: admin.py:148
+msgid "Currently:"
+msgstr "Actualmente:"
+
+#: admin.py:148
+msgid "Change:"
+msgstr "Cambio:"
+
+#: admin.py:244
+msgid "Content object"
+msgstr "Objeto"
+
+#: enums.py:17
+msgid "Afghanistan"
+msgstr ""
+
+#: enums.py:18
+msgid "Aland Islands"
+msgstr ""
+
+#: enums.py:19
+msgid "Albania"
+msgstr ""
+
+#: enums.py:20
+msgid "Algeria"
+msgstr ""
+
+#: enums.py:21
+msgid "American Samoa"
+msgstr ""
+
+#: enums.py:22
+msgid "Andorra"
+msgstr ""
+
+#: enums.py:23
+msgid "Angola"
+msgstr ""
+
+#: enums.py:24
+msgid "Anguilla"
+msgstr ""
+
+#: enums.py:25
+msgid "Antarctica"
+msgstr ""
+
+#: enums.py:26
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: enums.py:27
+msgid "Argentina"
+msgstr ""
+
+#: enums.py:28
+msgid "Armenia"
+msgstr ""
+
+#: enums.py:29
+msgid "Aruba"
+msgstr ""
+
+#: enums.py:30
+msgid "Australia"
+msgstr ""
+
+#: enums.py:31
+msgid "Austria"
+msgstr ""
+
+#: enums.py:32
+msgid "Azerbaijan"
+msgstr ""
+
+#: enums.py:33
+msgid "Bahamas"
+msgstr ""
+
+#: enums.py:34
+msgid "Bahrain"
+msgstr ""
+
+#: enums.py:35
+msgid "Bangladesh"
+msgstr ""
+
+#: enums.py:36
+msgid "Barbados"
+msgstr ""
+
+#: enums.py:37
+msgid "Belarus"
+msgstr ""
+
+#: enums.py:38
+msgid "Belgium"
+msgstr ""
+
+#: enums.py:39
+msgid "Belize"
+msgstr ""
+
+#: enums.py:40
+msgid "Benin"
+msgstr ""
+
+#: enums.py:41
+msgid "Bermuda"
+msgstr ""
+
+#: enums.py:42
+msgid "Bhutan"
+msgstr ""
+
+#: enums.py:43
+msgid "Bolivia"
+msgstr ""
+
+#: enums.py:44
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: enums.py:45
+msgid "Botswana"
+msgstr ""
+
+#: enums.py:46
+msgid "Bouvet Island"
+msgstr ""
+
+#: enums.py:47
+msgid "Brazil"
+msgstr ""
+
+#: enums.py:48
+msgid "British indian ocean territory"
+msgstr ""
+
+#: enums.py:49
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: enums.py:50
+msgid "Bulgaria"
+msgstr ""
+
+#: enums.py:51
+msgid "Burkina Faso"
+msgstr ""
+
+#: enums.py:52
+msgid "Burundi"
+msgstr ""
+
+#: enums.py:53
+msgid "Cambodia"
+msgstr ""
+
+#: enums.py:54
+msgid "Cameroon"
+msgstr ""
+
+#: enums.py:55
+msgid "Canada"
+msgstr ""
+
+#: enums.py:56
+msgid "Cape Verde"
+msgstr ""
+
+#: enums.py:57
+msgid "Cayman Islands"
+msgstr ""
+
+#: enums.py:58
+msgid "Central African Republic"
+msgstr ""
+
+#: enums.py:59
+msgid "Chad"
+msgstr ""
+
+#: enums.py:60
+msgid "Chile"
+msgstr ""
+
+#: enums.py:61
+msgid "China"
+msgstr ""
+
+#: enums.py:62
+msgid "Christmas Island"
+msgstr ""
+
+#: enums.py:63
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: enums.py:64
+msgid "Colombia"
+msgstr ""
+
+#: enums.py:65
+msgid "Comoros"
+msgstr ""
+
+#: enums.py:66
+msgid "Congo"
+msgstr ""
+
+#: enums.py:67
+msgid "Congo, the Democratic Republic of the"
+msgstr ""
+
+#: enums.py:68
+msgid "Cook islands"
+msgstr ""
+
+#: enums.py:69
+msgid "Costa rica"
+msgstr ""
+
+#: enums.py:70
+msgid "Cote d'ivoire"
+msgstr ""
+
+#: enums.py:71
+msgid "Croatia"
+msgstr ""
+
+#: enums.py:72
+msgid "Cuba"
+msgstr ""
+
+#: enums.py:73
+msgid "Cyprus"
+msgstr ""
+
+#: enums.py:74
+msgid "Czech republic"
+msgstr ""
+
+#: enums.py:75
+msgid "Denmark"
+msgstr ""
+
+#: enums.py:76
+msgid "Djibouti"
+msgstr ""
+
+#: enums.py:77
+msgid "Dominica"
+msgstr ""
+
+#: enums.py:78
+msgid "Dominican Republic"
+msgstr ""
+
+#: enums.py:79
+msgid "Ecuador"
+msgstr ""
+
+#: enums.py:80
+msgid "Egypt"
+msgstr ""
+
+#: enums.py:81
+msgid "El salvador"
+msgstr ""
+
+#: enums.py:82
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: enums.py:83
+msgid "Eritrea"
+msgstr ""
+
+#: enums.py:84
+msgid "Estonia"
+msgstr ""
+
+#: enums.py:85
+msgid "Ethiopia"
+msgstr ""
+
+#: enums.py:86
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: enums.py:87
+msgid "Faroe islands"
+msgstr ""
+
+#: enums.py:88
+msgid "Fiji"
+msgstr ""
+
+#: enums.py:89
+msgid "Finland"
+msgstr ""
+
+#: enums.py:90
+msgid "France"
+msgstr ""
+
+#: enums.py:91
+msgid "French Guiana"
+msgstr ""
+
+#: enums.py:92
+msgid "French Polynesia"
+msgstr ""
+
+#: enums.py:93
+msgid "French southern territories"
+msgstr ""
+
+#: enums.py:94
+msgid "Gabon"
+msgstr ""
+
+#: enums.py:95
+msgid "Gambia"
+msgstr ""
+
+#: enums.py:96
+msgid "Georgia"
+msgstr ""
+
+#: enums.py:97
+msgid "Germany"
+msgstr ""
+
+#: enums.py:98
+msgid "Ghana"
+msgstr ""
+
+#: enums.py:99
+msgid "Gibraltar"
+msgstr ""
+
+#: enums.py:100
+msgid "Greece"
+msgstr ""
+
+#: enums.py:101
+msgid "Greenland"
+msgstr ""
+
+#: enums.py:102
+msgid "Grenada"
+msgstr ""
+
+#: enums.py:103
+msgid "Guadeloupe"
+msgstr ""
+
+#: enums.py:104
+msgid "Guam"
+msgstr ""
+
+#: enums.py:105
+msgid "Guatemala"
+msgstr ""
+
+#: enums.py:106
+msgid "Guinea"
+msgstr ""
+
+#: enums.py:107
+msgid "Guinea-bissau"
+msgstr ""
+
+#: enums.py:108
+msgid "Guyana"
+msgstr ""
+
+#: enums.py:109
+msgid "Haiti"
+msgstr ""
+
+#: enums.py:110
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: enums.py:111
+msgid "Holy see (Vatican City State)"
+msgstr ""
+
+#: enums.py:112
+msgid "Honduras"
+msgstr ""
+
+#: enums.py:113
+msgid "Hong kong"
+msgstr ""
+
+#: enums.py:114
+msgid "Hungary"
+msgstr ""
+
+#: enums.py:115
+msgid "Iceland"
+msgstr ""
+
+#: enums.py:116
+msgid "India"
+msgstr ""
+
+#: enums.py:117
+msgid "Indonesia"
+msgstr ""
+
+#: enums.py:118
+msgid "Iran, Islamic Republic of"
+msgstr ""
+
+#: enums.py:119
+msgid "Iraq"
+msgstr ""
+
+#: enums.py:120
+msgid "Ireland"
+msgstr ""
+
+#: enums.py:121
+msgid "Israel"
+msgstr ""
+
+#: enums.py:122
+msgid "Italy"
+msgstr ""
+
+#: enums.py:123
+msgid "Jamaica"
+msgstr ""
+
+#: enums.py:124
+msgid "Japan"
+msgstr ""
+
+#: enums.py:125
+msgid "Jordan"
+msgstr ""
+
+#: enums.py:126
+msgid "Kazakhstan"
+msgstr ""
+
+#: enums.py:127
+msgid "Kenya"
+msgstr ""
+
+#: enums.py:128
+msgid "Kiribati"
+msgstr ""
+
+#: enums.py:129
+msgid "Korea, Democratic People's Republic of"
+msgstr ""
+
+#: enums.py:130
+msgid "Korea, Republic of"
+msgstr ""
+
+#: enums.py:131
+msgid "Kuwait"
+msgstr ""
+
+#: enums.py:132
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: enums.py:133
+msgid "Lao people's Democratic Republic"
+msgstr ""
+
+#: enums.py:134
+msgid "Latvia"
+msgstr ""
+
+#: enums.py:135
+msgid "Lebanon"
+msgstr ""
+
+#: enums.py:136
+msgid "Lesotho"
+msgstr ""
+
+#: enums.py:137
+msgid "Liberia"
+msgstr ""
+
+#: enums.py:138
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: enums.py:139
+msgid "Liechtenstein"
+msgstr ""
+
+#: enums.py:140
+msgid "Lithuania"
+msgstr ""
+
+#: enums.py:141
+msgid "Luxembourg"
+msgstr ""
+
+#: enums.py:142
+msgid "Macao"
+msgstr ""
+
+#: enums.py:143
+msgid "Macedonia, the former Yugoslav Republic of"
+msgstr ""
+
+#: enums.py:144
+msgid "Madagascar"
+msgstr ""
+
+#: enums.py:145
+msgid "Malawi"
+msgstr ""
+
+#: enums.py:146
+msgid "Malaysia"
+msgstr ""
+
+#: enums.py:147
+msgid "Maldives"
+msgstr ""
+
+#: enums.py:148
+msgid "Mali"
+msgstr ""
+
+#: enums.py:149
+msgid "Malta"
+msgstr ""
+
+#: enums.py:150
+msgid "Marshall Islands"
+msgstr ""
+
+#: enums.py:151
+msgid "Martinique"
+msgstr ""
+
+#: enums.py:152
+msgid "Mauritania"
+msgstr ""
+
+#: enums.py:153
+msgid "Mauritius"
+msgstr ""
+
+#: enums.py:154
+msgid "Mayotte"
+msgstr ""
+
+#: enums.py:155
+msgid "Mexico"
+msgstr ""
+
+#: enums.py:156
+msgid "Micronesia, Federated States of"
+msgstr ""
+
+#: enums.py:157
+msgid "Moldova, Republic of"
+msgstr ""
+
+#: enums.py:158
+msgid "Monaco"
+msgstr ""
+
+#: enums.py:159
+msgid "Mongolia"
+msgstr ""
+
+#: enums.py:160
+msgid "Montserrat"
+msgstr ""
+
+#: enums.py:161
+msgid "Morocco"
+msgstr ""
+
+#: enums.py:162
+msgid "Mozambique"
+msgstr ""
+
+#: enums.py:163
+msgid "Myanmar"
+msgstr ""
+
+#: enums.py:164
+msgid "Namibia"
+msgstr ""
+
+#: enums.py:165
+msgid "Nauru"
+msgstr ""
+
+#: enums.py:166
+msgid "Nepal"
+msgstr ""
+
+#: enums.py:167
+msgid "Netherlands"
+msgstr ""
+
+#: enums.py:168
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: enums.py:169
+msgid "New Caledonia"
+msgstr ""
+
+#: enums.py:170
+msgid "New Zealand"
+msgstr ""
+
+#: enums.py:171
+msgid "Nicaragua"
+msgstr ""
+
+#: enums.py:172
+msgid "Niger"
+msgstr ""
+
+#: enums.py:173
+msgid "Nigeria"
+msgstr ""
+
+#: enums.py:174
+msgid "Niue"
+msgstr ""
+
+#: enums.py:175
+msgid "Norfolk Island"
+msgstr ""
+
+#: enums.py:176
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: enums.py:177
+msgid "Norway"
+msgstr ""
+
+#: enums.py:178
+msgid "Oman"
+msgstr ""
+
+#: enums.py:179
+msgid "Pakistan"
+msgstr ""
+
+#: enums.py:180
+msgid "Palau"
+msgstr ""
+
+#: enums.py:181
+msgid "Palestinian yerritory, occupied"
+msgstr ""
+
+#: enums.py:182
+msgid "Panama"
+msgstr ""
+
+#: enums.py:183
+msgid "Papua New Guinea"
+msgstr ""
+
+#: enums.py:184
+msgid "Paraguay"
+msgstr ""
+
+#: enums.py:185
+msgid "Peru"
+msgstr ""
+
+#: enums.py:186
+msgid "Philippines"
+msgstr ""
+
+#: enums.py:187
+msgid "Pitcairn"
+msgstr ""
+
+#: enums.py:188
+msgid "Poland"
+msgstr ""
+
+#: enums.py:189
+msgid "Portugal"
+msgstr ""
+
+#: enums.py:190
+msgid "Puerto Rico"
+msgstr ""
+
+#: enums.py:191
+msgid "Qatar"
+msgstr ""
+
+#: enums.py:192
+msgid "Reunion"
+msgstr ""
+
+#: enums.py:193
+msgid "Romania"
+msgstr ""
+
+#: enums.py:194
+msgid "Russian Federation"
+msgstr ""
+
+#: enums.py:195
+msgid "Rwanda"
+msgstr ""
+
+#: enums.py:196
+msgid "Saint Helena"
+msgstr ""
+
+#: enums.py:197
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: enums.py:198
+msgid "Saint Lucia"
+msgstr ""
+
+#: enums.py:199
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: enums.py:200
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: enums.py:201
+msgid "Samoa"
+msgstr ""
+
+#: enums.py:202
+msgid "San marino"
+msgstr ""
+
+#: enums.py:203
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: enums.py:204
+msgid "Saudi Arabia"
+msgstr ""
+
+#: enums.py:205
+msgid "Senegal"
+msgstr ""
+
+#: enums.py:206
+msgid "Serbia and Montenegro"
+msgstr ""
+
+#: enums.py:207
+msgid "Seychelles"
+msgstr ""
+
+#: enums.py:208
+msgid "Sierra Leone"
+msgstr ""
+
+#: enums.py:209
+msgid "Singapore"
+msgstr ""
+
+#: enums.py:210
+msgid "Slovakia"
+msgstr ""
+
+#: enums.py:211
+msgid "Slovenia"
+msgstr ""
+
+#: enums.py:212
+msgid "Solomon Islands"
+msgstr ""
+
+#: enums.py:213
+msgid "Somalia"
+msgstr ""
+
+#: enums.py:214
+msgid "South Africa"
+msgstr ""
+
+#: enums.py:215
+msgid "South Georgia and the south Sandwich Islands"
+msgstr ""
+
+#: enums.py:216
+msgid "Spain"
+msgstr ""
+
+#: enums.py:217
+msgid "Sri Lanka"
+msgstr ""
+
+#: enums.py:218
+msgid "Sudan"
+msgstr ""
+
+#: enums.py:219
+msgid "Suriname"
+msgstr ""
+
+#: enums.py:220
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: enums.py:221
+msgid "Swaziland"
+msgstr ""
+
+#: enums.py:222
+msgid "Sweden"
+msgstr ""
+
+#: enums.py:223
+msgid "Switzerland"
+msgstr ""
+
+#: enums.py:224
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: enums.py:225
+msgid "Taiwan, province of China"
+msgstr ""
+
+#: enums.py:226
+msgid "Tajikistan"
+msgstr ""
+
+#: enums.py:227
+msgid "Tanzania, United Republic of"
+msgstr ""
+
+#: enums.py:228
+msgid "Thailand"
+msgstr ""
+
+#: enums.py:229
+msgid "Timor-Leste"
+msgstr ""
+
+#: enums.py:230
+msgid "Togo"
+msgstr ""
+
+#: enums.py:231
+msgid "Tokelau"
+msgstr ""
+
+#: enums.py:232
+msgid "Tonga"
+msgstr ""
+
+#: enums.py:233
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: enums.py:234
+msgid "Tunisia"
+msgstr ""
+
+#: enums.py:235
+msgid "Turkey"
+msgstr ""
+
+#: enums.py:236
+msgid "Turkmenistan"
+msgstr ""
+
+#: enums.py:237
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: enums.py:238
+msgid "Tuvalu"
+msgstr ""
+
+#: enums.py:239
+msgid "Uganda"
+msgstr ""
+
+#: enums.py:240
+msgid "Ukraine"
+msgstr ""
+
+#: enums.py:241
+msgid "United Arab Emirates"
+msgstr ""
+
+#: enums.py:242
+msgid "United Kingdom"
+msgstr ""
+
+#: enums.py:243
+msgid "United States"
+msgstr ""
+
+#: enums.py:244
+msgid "United States minor outlying islands"
+msgstr ""
+
+#: enums.py:245
+msgid "Uruguay"
+msgstr ""
+
+#: enums.py:246
+msgid "Uzbekistan"
+msgstr ""
+
+#: enums.py:247
+msgid "Vanuatu"
+msgstr ""
+
+#: enums.py:248
+msgid "Venezuela"
+msgstr ""
+
+#: enums.py:249
+msgid "Viet nam"
+msgstr ""
+
+#: enums.py:250
+msgid "Virgin Islands, british"
+msgstr ""
+
+#: enums.py:251
+msgid "Virgin Islands, u.s."
+msgstr ""
+
+#: enums.py:252
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: enums.py:253
+msgid "Western Sahara"
+msgstr ""
+
+#: enums.py:254
+msgid "Yemen"
+msgstr ""
+
+#: enums.py:255
+msgid "Zambia"
+msgstr ""
+
+#: enums.py:256
+msgid "Zimbabwe"
+msgstr ""
+
+#: forms/fields.py:26
+#, python-format
+msgid "I accept the <a href=\"%s\" target=\"_blank\">terms and conditions</a>"
+msgstr "Acepto los <a href=\"%s\" target=\"_blank\">términos y condiciones</a>"
+
+#: forms/fields.py:28
+msgid "I accept the terms and conditions"
+msgstr "Acepto los términos y condiciones"
+
+#: forms/fields.py:40
+msgid "You have to accept the terms and conditions to continue"
+msgstr "Debe aceptar los términos y condiciones para continuar"
+
+#: forms/fields.py:55
+msgid ""
+"You must specify reCAPTCHA public and private keys either in settings file "
+"or at RECAPTCHAField initialization"
+msgstr ""
+"Debe especificar claves pública y privada en el fichero de configuración o "
+"al inisializar el campo RECAPTCHAField"
+
+#: forms/fields.py:71 forms/fields.py:97
+msgid "Invalid verification"
+msgstr "Verificación no válida"
+
+#: forms/fields.py:135
+msgid "Must fill all coordinates"
+msgstr "Debe rellenar todas las coordenadas"
+
+#: forms/fields.py:166
+msgid "Must fill both latitude and longitude"
+msgstr "Debe rellenar latitud y longitud"
+
+#: forms/forms.py:26
+msgid "Verification code"
+msgstr "Código de verificación"
+
+#: forms/widgets.py:100
+msgid "Using AceEditorWidget will probably lock your browser."
+msgstr "Usar AceEditorWidget probablemente bloqueará tu navegador"
+
+#: i18n/forms/fields.py:32
+msgid "Please, fill all translations"
+msgstr "Por favor, rellene todas las traducciones"
+
+#: i18n/forms/fields.py:34
+#, python-format
+msgid "Please, fill at least main language field (%s)"
+msgstr "Por favor, rellene al menos el campo de lenguaje principal (%s)"
+
+#: i18n/models.py:30
+msgid "Internationalization TextField"
+msgstr "Campo de texto largo internacional"
+
+#: i18n/models.py:73
+msgid "Internationalization CharField"
+msgstr "Campo de texto internacional"
+
+#: i18n/models.py:88
+msgid "Internationalization HTMLField"
+msgstr "Campo HTML internacional"
+
+#: management/commands/translatetodefault.py:25
+msgid "Set translations to default translation string"
+msgstr "Establece las traducciones a la cadena de traducción por defecto"
+
+#: management/commands/translatetodefault.py:32
+#: management/commands/translatetodefault.py:38
+msgid "Replace existing translations too"
+msgstr "Reemplazar las traducciones existentes también"
+
+#: management/commands/translatetodefault.py:47
+msgid "You must specify at least one language to process"
+msgstr "Debe especificar al menos un idioma para procesar"
+
+#: management/commands/translatetodefault.py:59
+#, python-format
+msgid "ERROR: Can not open %(filename)s: %(error)s\n"
+msgstr "ERROR: No se pudo abrir %(filename)s: %(error)s\n"
+
+#: models/abstract.py:30 models/abstract.py:46 models/models.py:196
+msgid "Content type"
+msgstr "Tipo de contenido"
+
+#: models/abstract.py:31 models/abstract.py:47 models/models.py:197
+msgid "Associated content type"
+msgstr "Tipo de contenido asociado"
+
+#: models/abstract.py:32 models/abstract.py:48 models/models.py:198
+msgid "Object ID"
+msgstr "Identificador de objeto"
+
+#: models/abstract.py:33 models/abstract.py:49 models/models.py:199
+msgid "Associated object identifier"
+msgstr "Identificador de objeto asociado"
+
+#: models/fields.py:32
+msgid "Country selection field"
+msgstr "Campo de selección de país"
+
+#: models/fields.py:48
+msgid "Time zone selection field"
+msgstr "Campo de selección de zona horaria"
+
+#: models/fields.py:64
+msgid "Language selection field"
+msgstr "Campo de selección de idioma"
+
+#: models/fields.py:80
+msgid "Django template code character string field"
+msgstr "Campo de texto de plantilla de Django"
+
+#: models/fields.py:95
+msgid "Django template code text field"
+msgstr "Campo de código de plantilla Django"
+
+#: models/fields.py:110
+msgid "HTML field"
+msgstr "Campo HTML"
+
+#: models/fields.py:125
+msgid "Code field"
+msgstr "Campo de código"
+
+#: models/fields.py:140
+msgid "Encoded data field"
+msgstr "Campo de datos codificados"
+
+#: models/fields.py:149
+msgid "No encoder callback defined"
+msgstr "No se ha definido ninguna función de codificado"
+
+#: models/fields.py:152
+msgid "No decoder callback defined"
+msgstr "No se ha definido ninguna funcion de decodificado"
+
+#: models/fields.py:181
+msgid "JSON encoded data field"
+msgstr "Campo de datos codificados en JSON"
+
+#: models/fields.py:219
+msgid "JSON encoded latitude and longitude"
+msgstr "Latitud y longitud codificadas en JSON"
+
+#: models/fields.py:258
+msgid "JSON encoded bidimensional vector"
+msgstr "Vector bidimensional codificado en JSON"
+
+#: models/models.py:41 models/models.py:42
+msgid "Site information"
+msgstr "Información del sitio"
+
+#: models/models.py:44 models/models.py:105 models/models.py:182
+#: templates/sitelog/mail_admins.html:5
+msgid "Site"
+msgstr "Sitio"
+
+#: models/models.py:45
+msgid "Site this information is bound to"
+msgstr "Sitio al que está asociada esta información"
+
+#: models/models.py:46
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#: models/models.py:47
+msgid "Specify if this site is currently under maintenance"
+msgstr "Especifica si el sitio está en mantenimiento actualmente"
+
+#: models/models.py:48
+msgid "Active"
+msgstr "Activo"
+
+#: models/models.py:49
+msgid "Specifies if this site is currently active"
+msgstr "Especifica si el sitio está activo actualmente"
+
+#: models/models.py:89
+msgid "Unicode string"
+msgstr "Cadena Unicode"
+
+#: models/models.py:90
+msgid "Integer"
+msgstr "Entero"
+
+#: models/models.py:91
+msgid "Floating point number"
+msgstr "Número de coma flotante"
+
+#: models/models.py:92
+msgid "Boolean"
+msgstr "Booleano"
+
+#: models/models.py:93
+msgid "List"
+msgstr "Lista"
+
+#: models/models.py:94
+msgid "Dictionary"
+msgstr "Diccionario"
+
+#: models/models.py:95
+msgid "JSON data"
+msgstr "Datos JSON"
+
+#: models/models.py:102
+msgid "Site variable"
+msgstr "Variable de sitio"
+
+#: models/models.py:103
+msgid "Site variables"
+msgstr "Variables de sitios"
+
+#: models/models.py:106
+msgid "Site this variable is bound to"
+msgstr "Sitio al que está asociada esta variable"
+
+#: models/models.py:107 models/models.py:291 models/models.py:425
+msgid "Name"
+msgstr "Nombre"
+
+#: models/models.py:108
+msgid "Variable name"
+msgstr "Nombre de variable"
+
+#: models/models.py:109
+msgid "Type"
+msgstr "Tipo"
+
+#: models/models.py:110
+msgid "Variable type"
+msgstr "Tipo de variable"
+
+#: models/models.py:111
+msgid "Value"
+msgstr "Valor"
+
+#: models/models.py:112
+msgid "Current variable value"
+msgstr "Valor actual de variable"
+
+#: models/models.py:119
+#, python-format
+msgid "Invalid type selected: %s"
+msgstr "Tipo no válido selecionado: %s"
+
+#: models/models.py:123
+#, python-format
+msgid "Invalid value specified for type %s"
+msgstr "Valor no válido especificado para el tipo %s"
+
+#: models/models.py:138
+#, python-format
+msgid ""
+"Invalid value for boolean conversion. Must be either True or False strings: "
+"%s"
+msgstr ""
+"Valor no válido para conversión a booleano. Debe ser la cadena True o False: "
+"%s"
+
+#: models/models.py:166
+msgid "Info"
+msgstr "Información"
+
+#: models/models.py:167
+msgid "Warning"
+msgstr "Advertencia"
+
+#: models/models.py:168
+msgid "Error"
+msgstr "Error"
+
+#: models/models.py:169
+msgid "Critical"
+msgstr "Crítico"
+
+#: models/models.py:170
+msgid "Debug"
+msgstr "Depuración"
+
+#: models/models.py:177
+msgid "Site log"
+msgstr "Registro de sitio"
+
+#: models/models.py:178
+msgid "Site logs"
+msgstr "Registros del sitio"
+
+#: models/models.py:180
+msgid "Created"
+msgstr "Creado"
+
+#: models/models.py:181
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+#: models/models.py:183
+msgid "Associated website"
+msgstr "Sitio web asociado"
+
+#: models/models.py:184 templates/sitelog/mail_admins.html:3
+msgid "Level"
+msgstr "Nivel"
+
+#: models/models.py:185
+msgid "Log level"
+msgstr "Nivel de registro"
+
+#: models/models.py:186 templates/sitelog/mail_admins.html:2
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: models/models.py:187
+msgid "Tag for identifying this log message sender"
+msgstr "Etiqueda para identificar el creador de este mensaje de log"
+
+#: models/models.py:188 models/models.py:395
+#: templates/sitelog/mail_admins.html:7
+msgid "User"
+msgstr "Usuario"
+
+#: models/models.py:189
+msgid "Associated user"
+msgstr "Usuario asociado"
+
+#: models/models.py:190 models/models.py:399 models/models.py:431
+#: models/models.py:432 templates/sitelog/mail_admins.html:6
+msgid "IP address"
+msgstr "IP"
+
+#: models/models.py:191
+msgid "Associated IP address"
+msgstr "Dirección IP asociada"
+
+#: models/models.py:192
+msgid "Message"
+msgstr "Mensaje"
+
+#: models/models.py:193
+msgid "Log message"
+msgstr "Mensaje de registro"
+
+#: models/models.py:194 models/models.py:401
+#: templates/sitelog/mail_admins.html:8
+msgid "Data"
+msgstr "Datos"
+
+#: models/models.py:195
+msgid "Extra data for log message"
+msgstr "Datos extra para mensaje de registro"
+
+#: models/models.py:286 models/models.py:351
+msgid "Legal document"
+msgstr "Documento legal"
+
+#: models/models.py:287
+msgid "Legal documents"
+msgstr "Documentos legales"
+
+#: models/models.py:289
+msgid "Identifier"
+msgstr "Identificador"
+
+#: models/models.py:290
+msgid "Legal document unique identifier"
+msgstr "Identificador único del documento legal"
+
+#: models/models.py:292
+msgid "Legal document name"
+msgstr "Nombre del documento legal"
+
+#: models/models.py:293
+msgid "Country"
+msgstr "País"
+
+#: models/models.py:294
+msgid "Country this legal document is intended for"
+msgstr "País para el que está concebido este documento legal"
+
+#: models/models.py:295
+msgid "Default"
+msgstr "Predeterminado"
+
+#: models/models.py:296
+msgid "Default legal document"
+msgstr "Documento legal por defecto"
+
+#: models/models.py:297 models/models.py:397
+msgid "Description"
+msgstr "Descripción"
+
+#: models/models.py:298
+msgid "Legal document description"
+msgstr "Descripción de documento legal"
+
+#: models/models.py:347
+msgid "Legal document version"
+msgstr "Versión de documento legal"
+
+#: models/models.py:348
+msgid "Legal document versions"
+msgstr "Versiones de documentos legales"
+
+#: models/models.py:352
+msgid "Legal document for this version"
+msgstr "Documento legal de esta versión"
+
+#: models/models.py:353
+msgid "Language"
+msgstr "Idioma"
+
+#: models/models.py:354
+msgid "Legal document language for this version"
+msgstr "Idioma para esta versión del documento legal"
+
+#: models/models.py:355
+msgid "Date"
+msgstr "Fecha"
+
+#: models/models.py:356
+msgid "Date and time this document will apply"
+msgstr "Fecha y hora desde la que este documento estará vigente"
+
+#: models/models.py:357 models/models.py:393
+msgid "Version"
+msgstr "Versión"
+
+#: models/models.py:358
+msgid "Version number or identifier for this document"
+msgstr "Número de versión o identificador del documento"
+
+#: models/models.py:359 models/models.py:459
+msgid "Content"
+msgstr "Contenido"
+
+#: models/models.py:360
+msgid "Document content"
+msgstr "Contenido del documento"
+
+#: models/models.py:388
+msgid "Legal document acceptance"
+msgstr "Aceptación de documento legal"
+
+#: models/models.py:389
+msgid "Legal document acceptances"
+msgstr "Aceptaciones de documentos legales"
+
+#: models/models.py:391 models/models.py:423
+msgid "Timestamp"
+msgstr "Fecha y hora"
+
+#: models/models.py:392
+msgid "Date and time of document acceptance"
+msgstr "Fecha y hora de la aceptación del documento"
+
+#: models/models.py:394
+msgid "Legal document version that has been accepted"
+msgstr "Versión del documento legal que ha sido aceptado"
+
+#: models/models.py:396
+msgid "User that accepted terms"
+msgstr "Usuario que aceptó los términos"
+
+#: models/models.py:398
+msgid "Acceptance description"
+msgstr "Descripción de la aceptación"
+
+#: models/models.py:400
+msgid "IP address from where the acceptance connection was made"
+msgstr "Dirección IP desde la que se originó la conexión de aceptación"
+
+#: models/models.py:402
+msgid "Extra data for acceptance"
+msgstr "Datos extra de aceptación"
+
+#: models/models.py:419
+msgid "Contact message"
+msgstr "Mensaje de contacto"
+
+#: models/models.py:420
+msgid "Contact messages"
+msgstr "Mensajes de contacto"
+
+#: models/models.py:424
+msgid "Creation date and time"
+msgstr "Fecha y hora de creación"
+
+#: models/models.py:426
+msgid "Full name"
+msgstr "Nombre completo"
+
+#: models/models.py:427
+msgid "E-Mail"
+msgstr "Correo electrónico"
+
+#: models/models.py:428
+msgid "E-Mail (We will answer you to this email address)"
+msgstr "Correo electrónico (Le responderemos a esta dirección de correo)"
+
+#: models/models.py:429
+msgid "Text"
+msgstr "Texto"
+
+#: models/models.py:430
+msgid "What can we help you?"
+msgstr "¿En que podemos ayudarle?"
+
+#: models/models.py:433
+msgid "Replied"
+msgstr "Respondido"
+
+#: models/models.py:434
+msgid "Indicated if this message has been handled"
+msgstr "Indica si este mensaje ha sido procesado"
+
+#: models/models.py:435
+msgid "Notes"
+msgstr "Notas"
+
+#: models/models.py:436
+msgid "Notes about this message"
+msgstr "Notas acerca de este mensaje"
+
+#: models/models.py:453
+msgid "Database template"
+msgstr "Plantilla en base de datos"
+
+#: models/models.py:454
+msgid "Database templates"
+msgstr "Plantillas en base de datos"
+
+#: models/models.py:457
+msgid "Slug"
+msgstr "Slug"
+
+#: models/models.py:458
+msgid "Template slug"
+msgstr "Slug de la plantilla"
+
+#: models/models.py:460
+msgid "Template contents"
+msgstr "Contenido de la plantilla"
+
+#: templates/admin/filter.html:2
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Por %(filter_title)s"
+
+#: templates/sitelog/mail_admins.html:4
+msgid "Mesage"
+msgstr "Mensaje"
+
+#: utils.py:123
+#, python-format
+msgid "Requested file \"%s\" does not exist"
+msgstr "El archivo  \"%s\" no existe"
+
+#: validators.py:25
+#, python-format
+msgid "Error trying to render template code: %s"
+msgstr "Errir intentando traducir código de plantilla: %s"
+
+#: views.py:93 views.py:111
+msgid "No legal document matching given parameters"
+msgstr "No existe ningún documento para los parámetros especificados"
+
+#: views.py:150
+msgid "Contact form"
+msgstr "Formulario de contacto"
+
+#: views.py:152
+#, python-format
+msgid "New contact message from %(name)s %(email)s"
+msgstr "Nuevo mensaje de contacto de %(name)s %(email)s"
