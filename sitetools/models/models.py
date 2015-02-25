@@ -53,11 +53,12 @@ class SiteInfo(models.Model):
         Get all site variables in a dictionary
         """
         varlist=SiteVar.objects.filter(site=self)
-        if varnames:
-            varlist=varlist.filter(name__in=varlist)
+        if varnames is not None:
+            varlist=varlist.filter(name__in=varnames)
         data={}
         for var in varlist:
             data[var.name]=var.get_value()
+        print data
         return data
 
     def get_var(self,name,default=None):
@@ -65,6 +66,7 @@ class SiteInfo(models.Model):
         Get a variable value for this site
         """
         var=self.get_vars([name])
+        print var
         return var.get(name,default)
 
     def __unicode__(self):
