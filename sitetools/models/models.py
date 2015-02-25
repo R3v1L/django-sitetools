@@ -58,15 +58,13 @@ class SiteInfo(models.Model):
         data={}
         for var in varlist:
             data[var.name]=var.get_value()
-        print data
         return data
 
     def get_var(self,name,default=None):
         """
         Get a variable value for this site
         """
-        var=self.get_vars([name])
-        print var
+        var=self.get_vars([name])ç
         return var.get(name,default)
 
     def __unicode__(self):
