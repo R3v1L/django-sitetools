@@ -61,7 +61,7 @@ class I18NTextField(JSONField):
         
         setattr(cls, 'localized_%s' % name, property(get_localized_version))
         for lang,langname in settings.LANGUAGES:
-            setattr(cls, '%s_%s' % (name,lang), curry(get_localized_version,lang=lang))
+            setattr(cls, '%s_%s' % (name,lang), property(curry(get_localized_version,lang=lang)))
 
         # Call original method
         super(I18NTextField,self).contribute_to_class(cls, name)

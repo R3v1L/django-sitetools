@@ -110,7 +110,7 @@ def send_mail_to_admins(subject_template_name,email_template_name,request=None,c
     admins=[x[1] for x in settings.ADMINS]
     if managers:
         admins.extend([x[1] for x in settings.MANAGERS])
-    send_mail_from_template(admins, subject_template_name, email_template_name, fail_silently=fail_silently)
+    send_mail_from_template(admins, subject_template_name, email_template_name, context=context, fail_silently=fail_silently)
 
 def static_serve(filepath,*args,**kwargs):
     """
