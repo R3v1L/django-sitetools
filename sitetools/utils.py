@@ -22,9 +22,10 @@ from django.template import RequestContext
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import Http404
-from django.utils import six
-from django.utils.translation import ugettext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils import six
+from django.utils.text import slugify
+from django.utils.translation import ugettext
 from django.conf import settings
 
 def inject_app_defaults(appname):
@@ -204,3 +205,16 @@ def generate_unique_code(model,field,length=8,charset=string.digits + string.asc
     while model.objects.filter(**{ field: value }).filter(**filters).count() > 0:
         value=''.join([random.choice(charset) for x in range(length)])
     return value
+
+def generate_unique_slug(model,slugfield,text,uniqueid=None,length=5,charset=string.digits + string.ascii_lowercase,filters={}):
+    """
+    Generate an unique value for a given slug field of a given model
+    """
+    addedid=False
+    slug=slugify(text)
+    while model.objects.filter(**{ slugfield: slug }).filter(**filters).count() > 0:
+        if uniqueid and not addedid:
+            slug+='-%s' % uniqueid
+        else:
+            slug+='-%s' % ''.join([random.choice(charset) for x in range(length)])
+    return slug
