@@ -164,8 +164,14 @@ class BaseModelAdminLogic(object):
         """
         if not self.all_fields_readonly or (request.user.is_superuser and self.superuser_skips_all_readonly):
             return self.readonly_fields
-        if self.declared_fieldsets:
-            return flatten_fieldsets(self.declared_fieldsets)
+        print self.fieldsets
+        print list(set(
+                [field.name for field in self.opts.local_fields] +
+                [field.name for field in self.opts.local_many_to_many]
+            ))
+        if self.fieldsets:
+            return flatten_fieldsets(self.fieldsets)
+            
         else:
             return list(set(
                 [field.name for field in self.opts.local_fields] +
