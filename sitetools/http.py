@@ -15,7 +15,8 @@ import os, json, mimetypes
 
 # Django imports
 from django.http import HttpResponse
-from django.core.servers.basehttp import FileWrapper
+# from django.core.servers.basehttp import FileWrapper
+from wsgiref.util import FileWrapper
 from django.conf import settings
 
 class HttpResponseServiceUnavailable(HttpResponse):

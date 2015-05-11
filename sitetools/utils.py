@@ -17,7 +17,6 @@ import random
 import string
 
 # Django imports
-from django.contrib.sites.models import Site
 from django.template import RequestContext
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -64,6 +63,7 @@ def get_client_ip(req):
     return ip
 
 def get_site_from_request(request):
+        from django.contrib.sites.models import Site
         # By default, our site will be the one we defined in settings
         site=Site.objects.get_current()
         # Get request host

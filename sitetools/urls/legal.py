@@ -13,26 +13,28 @@ Legal documents application URLs module
 from django.conf.urls import url
 from django.conf import settings
 
+from sitetools import views
+
 urlpatterns = [
     # Legal document acceptance pages
     url(r'^accept/(?P<docid>\w+)/(?P<version>\w+)/$',
-        settings.LEGAL_DOCUMENT_ACCEPTANCE_VIEW,
+        views.legal_document_acceptance,
         name='legal_document_acceptance_version'),
     url(r'^accept/(?P<docid>\w+)/$',
-        settings.LEGAL_DOCUMENT_ACCEPTANCE_VIEW,
+        views.legal_document_acceptance,
         name='legal_document_acceptance_latest'),
     url(r'^accept/$',
-        settings.LEGAL_DOCUMENT_ACCEPTANCE_VIEW,
+        views.legal_document_acceptance,
         name='legal_document_acceptance'),
 
     # Legal document view
     url(r'^(?P<docid>\w+)/(?P<version>\w+)/$', 
-        settings.LEGAL_DOCUMENT_VIEW,
+        views.legal_document_view,
        name='legal_document_version'),
     url(r'^(?P<docid>\w+)/$',
-        settings.LEGAL_DOCUMENT_VIEW,
+        views.legal_document_view,
        name='legal_document_latest'),
     url(r'^$',
-        settings.LEGAL_DOCUMENT_VIEW,
+        views.legal_document_view,
         name='legal_document'),
 ]

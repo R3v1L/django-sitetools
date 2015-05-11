@@ -29,12 +29,6 @@ SECURE_URLS_DEBUG = False
 
 # Case sensitive URLs
 CASE_SENSITIVE_URLS = ()
- 
-# View for legal documents acceptance
-LEGAL_DOCUMENT_ACCEPTANCE_VIEW = 'sitetools.views.legal_document_acceptance'
-
-# View for legal documents
-LEGAL_DOCUMENT_VIEW = 'sitetools.views.legal_document_view'
 
 # Force legal documents acceptance by user
 FORCE_LEGAL_ACCEPTANCE = False
