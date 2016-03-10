@@ -13,29 +13,31 @@ Template string render tag module
 from django import template
 from django.conf import settings
 
+
 class StringRenderNode(template.Node):
+
     """
     Template node for stringrender tag
     """
+
     def __init__(self, template_string):
         """
         Template node initialization
         """
         self.template_string = template.Variable(template_string)
-        
+
     def render(self, context):
         """
         Template node rendering method
         """
-        if settings.TEMPLATE_DEBUG:            
+        try:
             t = template.Template(self.template_string.resolve(context))
             return t.render(context)
-        else:
-            try:
-                t = template.Template(self.template_string.resolve(context))
-                return t.render(context)
-            except:
-                return ''
+        except Exception, e:
+            if settings.DEBUG:
+                print (e)
+            return ''
+
 
 def stringrender_tag(parser, token):
     """
@@ -49,4 +51,3 @@ def stringrender_tag(parser, token):
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
     # Return template node
     return StringRenderNode(template_string)
-
