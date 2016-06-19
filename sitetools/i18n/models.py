@@ -5,7 +5,7 @@
 
 .. module:: evodjango.i18n.models
     :platform: Django
-    :synopsis: 
+    :synopsis:
 .. moduleauthor:: (C) 2014 Oliver Gutiérrez
 
 # TODO: Automatic translation support using Google Translate
@@ -28,8 +28,7 @@ class I18NTextField(JSONField):
     Internationalization TextField
     """
     description = _('Internationalization TextField')
-    __metaclass__ = models.SubfieldBase
-    
+
     def formfield(self, **kwargs):
         """
         Form field method overload
@@ -58,7 +57,7 @@ class I18NTextField(JSONField):
                         value=data[settings.LANGUAGE_CODE]
             return value
         get_localized_version.short_description = name
-        
+
         setattr(cls, 'localized_%s' % name, property(get_localized_version))
         for lang,langname in settings.LANGUAGES:
             setattr(cls, '%s_%s' % (name,lang), property(curry(get_localized_version,lang=lang)))
@@ -71,7 +70,6 @@ class I18NCharField(I18NTextField):
     Internationalization CharField
     """
     description = _('Internationalization CharField')
-    __metaclass__ = models.SubfieldBase
     
     def formfield(self,**kwargs):
         """
@@ -86,7 +84,6 @@ class I18NHTMLField(I18NTextField):
     Internationalization HTMLField
     """
     description = _('Internationalization HTMLField')
-    __metaclass__ = models.SubfieldBase
     
     def formfield(self,**kwargs):
         """

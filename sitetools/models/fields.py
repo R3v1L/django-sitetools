@@ -30,7 +30,6 @@ class CountryField(models.CharField):
     Country selection field
     """
     description = _('Country selection field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -46,7 +45,6 @@ class TimezoneField(models.CharField):
     Timezone selection field
     """
     description = _('Time zone selection field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -62,7 +60,6 @@ class LanguageField(models.CharField):
     Language selection field
     """
     description = _('Language selection field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -78,7 +75,6 @@ class DjangoTemplateCodeCharField(models.CharField):
     Django template code field class
     """
     description = _('Django template code character string field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -93,7 +89,6 @@ class DjangoTemplateCodeTextField(models.TextField):
     Django template code field class
     """
     description = _('Django template code text field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -108,7 +103,6 @@ class HTMLField(models.TextField):
     HTML field class
     """
     description = _('HTML field')
-    __metaclass__ = models.SubfieldBase
 
     def formfield(self, **kwargs):
         """
@@ -123,7 +117,6 @@ class CodeField(models.TextField):
     Code field class
     """
     description = _('Code field')
-    __metaclass__ = models.SubfieldBase
 
     def formfield(self, **kwargs):
         """
@@ -138,7 +131,6 @@ class EncodedField(models.TextField):
     Encoded data field
     """
     description = _('Encoded data field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -179,7 +171,6 @@ class JSONField(EncodedField):
     TODO: Add getattr overload to get fields inside JSON data
     """
     description = _('JSON encoded data field')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
@@ -217,7 +208,6 @@ class LocationField(JSONField):
     Location field class
     """
     description = _('JSON encoded latitude and longitude')
-    __metaclass__ = models.SubfieldBase
 
     def formfield(self, **kwargs):
         """
@@ -256,7 +246,6 @@ class VectorField(JSONField):
     Bidimensional vector field class
     """
     description = _('JSON encoded bidimensional vector')
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         """
