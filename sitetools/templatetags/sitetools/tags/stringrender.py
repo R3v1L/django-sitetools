@@ -34,8 +34,7 @@ class StringRenderNode(template.Node):
             t = template.Template(self.template_string.resolve(context))
             return t.render(context)
         except Exception, e:
-            if settings.DEBUG:
-                print (e)
+            print (e)
             return ''
 
 
